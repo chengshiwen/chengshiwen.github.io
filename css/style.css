@@ -1,0 +1,24 @@
+/* Document styling */
+body {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	width: 840px;
+	margin: 0 auto 20px auto;
+	font-size: 14px;
+}
+
+/* SVG styling */
+svg {
+	width: 840px;
+	height: 600px;
+	font-family: helvetica, sans-serif;
+}
+
+path, line {
+	stroke: #777;
+}
+
+center {
+	margin-top: 10px;
+	font-family: cursive;
+	font-size: 18px;
+}
