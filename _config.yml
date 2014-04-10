@@ -1,0 +1,8 @@
+name: Septends Site
+title: Septends
+url: /
+
+markdown: rdiscount
+pygments: true
+permalink: /:title
+paginate: 6
