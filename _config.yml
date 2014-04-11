@@ -4,5 +4,5 @@ url: /
 
 markdown: rdiscount
 pygments: true
-permalink: /:title
+permalink: /article/:title
 paginate: 6
