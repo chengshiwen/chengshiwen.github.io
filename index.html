@@ -13,7 +13,11 @@ title: Septends Tree
 
 <script type="text/javascript">
     $(function() {
-        if (navigator.userAgent.indexOf('UCBrowser') > -1) {
+        var is_mobile = !!navigator.userAgent.match(/AppleWebKit.*Mobile/) ||
+                        !!navigator.userAgent.match(/UCBrowser/) ||
+                        !!navigator.userAgent.match(/Windows Phone/) ||
+                        !!navigator.userAgent.match(/MQQBrowser/);
+        if (is_mobile) {
             $('#chart').width('95%').css('marginTop', 100);
             $('#chart').children(':first').remove();
             $('#chart').prepend('<img src="/assets/images/binarytree.png" />');
