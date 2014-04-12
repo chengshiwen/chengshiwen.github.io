@@ -7,13 +7,20 @@ layout: default
     #content { width: 65%; }
     #content a { text-decoration: none; }
     .entry { float:none; width:auto; }
+    hr { margin-top: 30px; margin-bottom: 20px; }
 
     @media screen and (max-width: 750px) {
         #content { width:95%; }
         .entry { float:none; width:auto; padding: 10px; }
         h2 { font-size: 20px; }
     }
-}
+
+    @media screen and (max-width: 430px) {
+        #content { width:95%; }
+        .entry { float:none; width:auto; padding: 10px; }
+        h2 { font-size: 16px; }
+        hr { margin-top: -5px; }
+    }
 </style>
 
 <div id="content">
