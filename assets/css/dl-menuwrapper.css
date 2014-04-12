@@ -20,6 +20,7 @@
     float: left;
     font-family: 'Lato', Calibri, Arial, sans-serif;
     color: #b1aea6;
+    z-index: 10;
     -webkit-perspective: 1000px;
     -moz-perspective: 1000px;
     perspective: 1000px;
