@@ -29,7 +29,7 @@
 }
 
 .dl-menuwrapper button {
-    background: #ccc;
+    background: #bbb;
     border: none;
     width: 48px;
     height: 45px;
@@ -43,7 +43,7 @@
 .dl-menuwrapper button:hover,
 .dl-menuwrapper button.dl-active,
 .dl-menuwrapper ul {
-    background: #aaa;
+    background: #777;
 }
 
 .dl-menuwrapper button:after {
@@ -957,22 +957,4 @@ All this is done for any sub-level being entered.
 
 .no-js .dl-menuwrapper li > a:not(:only-child):after {
     content: '';
-}
-
-.dl-menuwrapper button {
-    background: #aaa;
-}
-
-.dl-menuwrapper button:hover,
-.dl-menuwrapper button.dl-active,
-.dl-menuwrapper ul {
-    background: #777;
-}
-
-.dl-menu li {
-    display: none;
-}
-
-.dl-menuopen li {
-    display: block;
 }
