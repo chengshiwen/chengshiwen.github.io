@@ -92,7 +92,7 @@ h3.about {color:#777;margin-top:20px;font-size:22px;margin-bottom:10px}
 
 @media screen and (max-width: 750px) {
     body {font-size:14px;}
-    #content {width:93%;margin:100px auto 50px;}
+    #content {width:93%;margin:90px auto 50px;}
 
     h2 {font-size:20px;}
     h3 {font-size:16px;}
@@ -109,7 +109,7 @@ h3.about {color:#777;margin-top:20px;font-size:22px;margin-bottom:10px}
 }
 
 @media screen and (max-width: 1100px) {
-    #content {width:93%;margin:100px auto 50px;}
+    #content {width:93%;margin:90px auto 50px;}
     #menuIndex {display:none;}
     .sidenav {display:none;}
     .entry {float:none;width:auto;}
