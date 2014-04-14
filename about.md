@@ -3,6 +3,7 @@ layout: page
 title: 关于我
 ---
 
+<iframe width="190" height="75" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=190&height=75&fansRow=1&ptype=1&speed=0&skin=1&isTitle=0&noborder=0&isWeibo=0&isFans=0&uid=2010283231&verifier=456d70aa&dpc=1" style="float: right; margin-top: -25px;"></iframe>
 <h2>关于我</h2>
 <hr style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" color="#e8e8e8" size="3" />
 
