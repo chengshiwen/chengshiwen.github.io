@@ -6,16 +6,19 @@ title: 关于我
 <h2>关于我</h2>
 <hr style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" color="#e8e8e8" size="3" />
 
+#### 奇小在
+
 一名五道口男子职业技术学院的码农
 
 #### 标签
-`IT互联网` `数码控` `极客` `强迫症` `旅行` `音乐` `低调` `游戏` `金融`
+
+`IT互联网` `数码控` `极客` `旅行` `音乐` `低调` `游戏` `金融` `强迫症`
 
 
 ### 关于网站
 
- - <a href="https://pages.github.com" target="_blank">GitHub Pages</a>
- - <a href="http://jekyllrb.com" target="_blank">Jekyll</a>
+用于技术的分享和交流，同时记录一些个人的随想和感悟  
+本网站基于<a href="https://pages.github.com" target="_blank">GitHub Pages</a>，采用<a href="http://jekyllrb.com" target="_blank">Jekyll</a>模板系统搭建，文章使用<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown</a>标记语言撰写
 
 
 ### 联系方式
