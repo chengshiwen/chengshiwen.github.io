@@ -55,7 +55,7 @@ pre code {padding:0;font-size:inherit;color:inherit;background-color:transparent
 .sidenav ul {margin-bottom:50px;}
 .sidenav li {margin-bottom:12px;word-break:break-all;}
 .sidenav a {color:#555;font-size:14px;display:block;}
-.entry {margin-bottom:80px;width:680px;float:left;background:#fff;padding:30px;box-shadow:0 2px 6px #ccc;}
+.entry {margin-bottom:40px;width:680px;float:left;background:#fff;padding:30px;box-shadow:0 2px 6px #ccc;}
 .entry ul {margin-bottom:25px;margin-left:25px;}
 .entry p+ul {margin-top:-20px;}
 .entry ul li {margin-bottom:5px;list-style:disc;line-height:1.8em;}
@@ -70,15 +70,12 @@ pre code {padding:0;font-size:inherit;color:inherit;background-color:transparent
 .index-content .artical-list li {margin-bottom:70px;list-style:none;}
 .index-content h2 {font-size:20px;margin-bottom:15px;word-break:break-all;}
 .index-content h2 a {color:#444}
-.index-content h2 a:hover {color:#08c; text-decoration:none;}
+.index-content h2 a:hover {color:#08c;text-decoration:none;}
 .index-content .title-desc {color:#999;font-size:14px;line-height:1.6em;}
 
 /***************contact style*************/
-#disqus_container {font-size:12px;}
-#disqus_container a.comment {font-size:14px;}
-h3.about {color:#777;margin-top:20px;font-size:22px;margin-bottom:10px}
-.about-link a {margin-right:10px;font-weight:bold;font-style:italic;font-size:13px;color:#E50053}
-
+#ds_container {margin-top:60px;}
+#ds_container a.comment {font-size:14px;text-decoration:none;}
 
 /**************目录导航**************/
 #menuIndex {overflow:auto;}

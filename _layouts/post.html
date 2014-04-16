@@ -14,6 +14,21 @@ layout: default
         <h1 class="entry-title"><a href="{{ page.url }}" title="{{ page.title }}">{{ page.title }}</a></h1>
         <p class="entry-date">{{ page.date|date:"%Y-%m-%d" }}</p>
         {{ content }}
+
+        <div id="ds_container">
+            <div class="ds-thread" data-thread-key="{{ page.url }}" data-title="{{ page.title }}" data-url="http://cheng-shiwen.com{{ page.url }}"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name: "cheng-shiwen"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';
+                    ds.async = true;
+                    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+        </div>
     </div>
 
     <div class="sidenav">
