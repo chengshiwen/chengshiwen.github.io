@@ -29,6 +29,13 @@
     perspective-origin: 50% 200%;
 }
 
+@media screen and (max-width: 1100px) {
+    .dl-menuwrapper {
+        position: absolute;
+        left: 2.5%;
+    }
+}
+
 .dl-menuwrapper button {
     background: #bbb;
     border: none;
