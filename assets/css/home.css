@@ -6,6 +6,17 @@
     font-size: 14px;
 }
 
+@media screen and (max-width: 750px) {
+    #chart {
+        width: 95%;
+        margin-top: 100px;
+    }
+    #chart img {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
 #chart center {
     margin-top: 10px;
     font-family: cursive, 'Lato', Calibri, Arial, sans-serif;

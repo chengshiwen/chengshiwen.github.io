@@ -46,7 +46,7 @@ pre {overflow:auto;border:1px solid #999;page-break-inside:avoid;display:block;p
 pre code {padding:0;font-size:inherit;color:inherit;background-color:transparent;border:0;word-wrap:normal;}
 
 /************layout style*****************/
-#content {width:1060px;margin:90px auto 60px;min-height:400px;height:auto !important;height:400px;}
+#content {width:1060px;margin:90px auto 30px;min-height:400px;height:auto !important;height:400px;}
 
 
 /****************entry style**************/
@@ -55,7 +55,7 @@ pre code {padding:0;font-size:inherit;color:inherit;background-color:transparent
 .sidenav ul {margin-bottom:50px;}
 .sidenav li {margin-bottom:12px;word-break:break-all;}
 .sidenav a {color:#555;font-size:14px;display:block;}
-.entry {margin-bottom:40px;width:680px;float:left;background:#fff;padding:30px;box-shadow:0 2px 6px #ccc;}
+.entry {margin-bottom:30px;width:680px;float:left;background:#fff;padding:30px;box-shadow:0 2px 6px #ccc;}
 .entry ul {margin-bottom:25px;margin-left:25px;}
 .entry p+ul {margin-top:-20px;}
 .entry ul li {margin-bottom:5px;list-style:disc;line-height:1.8em;}
@@ -89,7 +89,7 @@ pre code {padding:0;font-size:inherit;color:inherit;background-color:transparent
 
 @media screen and (max-width: 750px) {
     body {font-size:14px;}
-    #content {width:95%;margin:90px auto 50px;}
+    #content {width:95%;margin:90px auto 30px;}
 
     h2 {font-size:20px;}
     h3 {font-size:16px;}
@@ -106,7 +106,7 @@ pre code {padding:0;font-size:inherit;color:inherit;background-color:transparent
 }
 
 @media screen and (max-width: 1100px) {
-    #content {width:95%;margin:90px auto 50px;}
+    #content {width:95%;margin:90px auto 30px;}
     #menuIndex {display:none;}
     .sidenav {display:none;}
     .entry {float:none;width:auto;padding:30px 20px;}

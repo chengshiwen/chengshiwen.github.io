@@ -98,6 +98,14 @@ function update() {
         .attr('y2', y2);
 }
 
-regenerate(true);
-
-setInterval("regenerate();", 10000);
+var is_mobile = !!navigator.userAgent.match(/AppleWebKit.*Mobile/) ||
+                !!navigator.userAgent.match(/UCBrowser/) ||
+                !!navigator.userAgent.match(/Windows Phone/) ||
+                !!navigator.userAgent.match(/MQQBrowser/);
+if (is_mobile) {
+    $('#chart').children(':first').remove();
+    $('#chart').prepend('<img src="/assets/images/binarytree.png" />');
+} else {
+    regenerate(true);
+    setInterval("regenerate();", 10000);
+}

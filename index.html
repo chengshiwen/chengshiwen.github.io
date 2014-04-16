@@ -10,18 +10,3 @@ title: 二叉树
 </div>
 <script src="/assets/js/d3.v3.min.js"></script>
 <script src="/assets/js/home-tree.js"></script>
-
-<script type="text/javascript">
-    $(function() {
-        var is_mobile = !!navigator.userAgent.match(/AppleWebKit.*Mobile/) ||
-                        !!navigator.userAgent.match(/UCBrowser/) ||
-                        !!navigator.userAgent.match(/Windows Phone/) ||
-                        !!navigator.userAgent.match(/MQQBrowser/);
-        if (is_mobile) {
-            $('#chart').width('95%').css('marginTop', 100);
-            $('#chart').children(':first').remove();
-            $('#chart').prepend('<img src="/assets/images/binarytree.png" />');
-            $('#chart img').width('100%').css('marginBottom', 20);
-        }
-    });
-</script>
