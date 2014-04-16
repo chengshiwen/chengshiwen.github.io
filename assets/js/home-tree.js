@@ -100,4 +100,4 @@ function update() {
 
 regenerate(true);
 
-setInterval("regenerate();", 5000);
+setInterval("regenerate();", 10000);
