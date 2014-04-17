@@ -98,6 +98,18 @@ function update() {
         .attr('y2', y2);
 }
 
+window.is_menu_display = false;
+
+function menu_display() {
+    if (!window.is_menu_display) {
+        window.is_menu_display = true;
+        $('#dl-menu').fadeIn();
+        window.timeout_handle = setTimeout("$('#dl-menu').fadeOut(1500, function(){window.is_menu_display = false;});", 3500);
+    }
+}
+
+$('body').click(menu_display);
+
 var is_mobile = !!navigator.userAgent.match(/AppleWebKit.*Mobile/) ||
                 !!navigator.userAgent.match(/UCBrowser/) ||
                 !!navigator.userAgent.match(/Windows Phone/) ||

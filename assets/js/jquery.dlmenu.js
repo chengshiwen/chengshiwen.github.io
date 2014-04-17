@@ -71,6 +71,10 @@
 
 			this.$trigger.on( 'click.dlmenu', function() {
 
+				if (typeof window.timeout_handle !== 'undefined') {
+					clearTimeout(window.timeout_handle);
+				}
+
 				if( self.open ) {
 					self._closeMenu();
 				}
@@ -171,6 +175,11 @@
 			}
 
 			this.open = false;
+
+			if (typeof window.is_menu_display !== 'undefined') {
+				$body.off('click.dlmenu').click(menu_display);
+				window.timeout_handle = setTimeout("$('#dl-menu').fadeOut(1500, function(){window.is_menu_display = false;});", 3500);
+			}
 		},
 		_openMenu : function() {
 			this.$menu.addClass( 'dl-menuopen dl-menu-toggle' ).on( this.transEndEventName, function() {

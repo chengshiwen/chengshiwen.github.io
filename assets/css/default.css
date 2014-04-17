@@ -89,7 +89,7 @@ pre code {padding:0;font-size:inherit;color:inherit;background-color:transparent
 
 @media screen and (max-width: 750px) {
     body {font-size:14px;}
-    #content {width:95%;margin:90px auto 30px;}
+    #content {width:95%;margin:90px auto 15px;}
 
     h2 {font-size:20px;}
     h3 {font-size:16px;}
@@ -99,17 +99,17 @@ pre code {padding:0;font-size:inherit;color:inherit;background-color:transparent
     .entry-date {margin-bottom:40px;}
     .entry img {max-width:90%;}
     .sidenav {display:none;}
-    .entry {float:none;width:auto;}
+    .entry {float:none;width:auto;margin-bottom:15px;}
 
     .index-content {margin-left:0;padding-right:0;}
     .index-content ul {width:85%;}
 }
 
 @media screen and (max-width: 1100px) {
-    #content {width:95%;margin:90px auto 30px;}
+    #content {width:95%;margin:90px auto 15px;}
     #menuIndex {display:none;}
     .sidenav {display:none;}
-    .entry {float:none;width:auto;padding:30px 20px;}
+    .entry {float:none;width:auto;padding:30px 20px;margin-bottom:15px;}
     .index-content .artical-list {width:85%;}
 }
 
