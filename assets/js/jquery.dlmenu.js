@@ -178,7 +178,7 @@
 
 			if (typeof window.is_menu_display !== 'undefined') {
 				$body.off('click.dlmenu').click(menu_display);
-				window.timeout_handle = setTimeout("$('#dl-menu').fadeOut(1500, function(){window.is_menu_display = false;});", 3500);
+				window.timeout_handle = setTimeout("$('#dl-menu').fadeOut(500, function(){window.is_menu_display = false;});", 4500);
 			}
 		},
 		_openMenu : function() {

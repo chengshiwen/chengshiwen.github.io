@@ -104,7 +104,7 @@ function menu_display() {
     if (!window.is_menu_display) {
         window.is_menu_display = true;
         $('#dl-menu').fadeIn();
-        window.timeout_handle = setTimeout("$('#dl-menu').fadeOut(1500, function(){window.is_menu_display = false;});", 3500);
+        window.timeout_handle = setTimeout("$('#dl-menu').fadeOut(500, function(){window.is_menu_display = false;});", 4500);
     }
 }
 
