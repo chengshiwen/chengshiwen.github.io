@@ -40,7 +40,7 @@ Git仓库用于跟踪管理项目中的文件，保存不同分支信息和所�
 
 如上图所示，绿色节点表示一个**提交（commit）对象**，该对象包含一个指向暂存内容快照（即项目提交的一次修改）的指针，本次提交的作者等相关附属信息，以及零个或多个指向该提交对象的父对象的指针。其中7位字符串是相应提交的SHA-1哈希值的前7位，用于索引该次提交。
 
-**分支（branch）**用橘色节点显示，分别指向特定的提交，其实本质上仅仅是个指向提交对象的可变指针。Git会使用master作为分支的默认名字。在若干次提交后，master分支会指向最后一次提交对象，它在每次提交的时候都会自动向前移动。dev分支即是指向`a473c87`提交对象的一个分支指针。  
+**分支（branch）**用橘色节点显示，分别指向特定的提交，其实本质上仅仅是个指向提交对象的可变指针。Git会使用master作为分支的默认名字。在若干次提交后，master分支会指向最后一次提交对象，它在每次提交的时候都会自动向前移动。dev分支即是指向`a473c87`提交对象的一个分支指针。<br/>
 不同分支维护的功能不同，如版本稳定、新功能开发、代码测试等。
 
 **HEAD指针**是一个指向你正在工作中的本地分支的指针，在你切换分支时会指向新的分支，而当每次提交后 HEAD指针也会随着分支一起向前移动。
@@ -76,7 +76,7 @@ Git仓库用于跟踪管理项目中的文件，保存不同分支信息和所�
 
 已跟踪的文件又分为三种状态：已提交（committed），已修改（modified）和已暂存（staged）。**已提交**表示该文件已经被安全地保存在本地仓库中了；**已修改**表示修改了某个文件，但还没有提交保存；**已暂存**表示把已修改的文件放在下次提交到本地仓库时要保存的清单中。
 
-要查看工作目录下的文件状态，可以用`git status`命令（参考<a href="#menuIndex7">Git基本命令<a>）。
+要查看工作目录下的文件状态，可以用`git status`命令（详见<a href="#menuIndex7">Git基本命令</a>）。
 
 
 ## Git安装和配置
@@ -169,6 +169,367 @@ Git能够为输出到你终端的内容着色，以便你可以凭直观进行�
 
 
 ## Git基本命令
+
+### 获得Git仓库
+
+有两种获得Git项目仓库的方法：第一种是在现存的目录下，通过初始化来创建新的Git仓库；第二种是从已有的Git仓库克隆出一个新的镜像仓库来。
+
+#### 1、在工作目录中初始化新仓库
+
+要对现有的某个项目开始用Git管理，只需到此项目所在的目录，执行：
+
+	$ git init
+
+初始化后，在当前目录下会出现一个名为`.git`的目录，所有Git需要的数据都存放在这个目录中。
+
+#### 2、从现有仓库克隆
+
+从现有的项目仓库（如远程服务器上自己的项目，或者其它某个开源项目）克隆到本地，Git接收的是项目历史的所有数据（包括每一个文件的每一个版本）。克隆仓库的命令格式为
+
+	$ git clone <repo> [<dir>]
+
+例如，要克隆jQuery仓库，可以执行以下命令：
+
+	$ git clone git@github.com:jquery/jquery.git
+
+克隆时可以在上面的命令末尾指定新的名字，来定义要新建的项目目录名称（仅目录名称不同），例如：
+
+	$ git clone git@github.com:jquery/jquery.git myjquery
+
+Git支持`git://`，`http(s)://`，`ssh://`等多种数据传输协议。
+
+### Git的基本工作流程
+
+Git的基本工作流程如下：
+
+1. 修改文件：在工作目录中修改某些文件
+2. 暂存文件：对修改后的文件进行快照或跟踪新文件，保存至暂存区域
+3. 提交更新：将保存在暂存区域的文件快照永久转储到Git目录中
+
+#### 1、查看当前文件状态
+
+要查看工作目录下当前文件的状态，运行`git status`：
+
+	$ git status
+	# On branch master
+	# Your branch is behind 'origin/master' by 3 commits, and can be fast-forwarded.
+	#
+	# Changes to be committed:
+	#   (use "git reset HEAD <file>..." to unstage)
+	#
+	#   new file:   daemon.c
+	#	modified:   grep.c
+	#
+	# Changes not staged for commit:
+	#   (use "git add <file>..." to update what will be committed)
+	#   (use "git checkout -- <file>..." to discard changes in working directory)
+	#
+	#   modified:   .gitignore
+	#   modified:   grep.h
+	#
+	# Untracked files:
+	#   (use "git add <file>..." to include in what will be committed)
+	#
+	#   README.md
+
+其中第一行表示当前处在master分支，第二行表示当前分支与远程对应分支的比较结果；<br/>
+`Changes to be committed`表示已暂存，`Changes not staged for commit`表示已修改，`Untracked files`表示未跟踪。
+
+若该命令得到以下结果，则表明当前的工作目录相当干净。
+
+	On branch master
+	nothing to commit, working directory clean
+
+常用参数：
+
+- `git status -s`：查看状态的简要信息
+- `git status --ignored`：查看被忽略的文件
+
+#### 2、暂存文件
+
+基本命令为`git add`，其作用是把目标文件快照放入暂存区域（_add file into staged area_）。
+
+##### 跟踪新文件
+
+使用命令`git add`开始跟踪一个新文件（未跟踪文件）。例如，跟踪`README.md`文件：
+
+	$ git add README.md
+
+此时，运行`git status`会看到README.md文件已被跟踪，并处于暂存状态。
+
+##### 暂存已修改文件
+
+`git add`可以将已修改的文件更新至暂存区域，变成已暂存状态。例如，暂存`.gitignore`文件：
+
+	git add .gitignore
+
+常用参数
+
+- `git add`：暂存新文件和已修改文件，不包括被删除文件
+- `git add -u`：暂存已修改文件和被删除文件，不包括新文件
+- `git add -A`：暂存所有文件，包括新文件、已修改文件和被删除文件
+
+此外，建议不用使用`git add .`，除非已经非常明确所有的新文件和已修改文件都需要暂存，否则这将导致越来越多的不必要文件（如临时文件、build文件、误入文件等）被加入到版本控制中，其体积也将越来越臃肿庞大，难以进行管理和维护。
+
+对于一些不需要纳入Git管理的文件，也不希望它们总出现在未跟踪文件列表中，可以忽略这些文件（详见<a href="#menuIndex">Git文件忽略</a>）。
+
+#### 3、差异比较
+
+基本命令为`git diff`，其作用是比较工作目录中已修改文件和暂存区域已暂存文件之间的差异（即修改之后还没有暂存起来的变化内容）：
+
+	$ git diff
+	diff --git a/page.html b/page.html
+	index 3cb747f..da65585 100644
+	--- a/page.html
+	+++ b/page.html
+	@@ -8,18 +8,20 @@
+	      #content a { text-decoration: none; }
+	      .entry { float:none; width:auto; }
+	      hr { margin-top: 30px; margin-bottom: 20px; }
+	 +    iframe { float: right; margin-top: -25px; }
+	  
+	      @media screen and (max-width: 750px) {
+	 -        #content { width:95%; }
+	 -        .entry { float:none; width:auto; padding: 10px; }
+	 +        #content { width: 95%; }
+	 +        .entry { padding: 30px 10px; }
+	          h2 { font-size: 20px; }
+	 +        hr { margin-top: -3px; }
+	 +        iframe { margin-top: -30px; }
+	      }
+
+其中，`+`表示新增代码，`-`表示删除代码。
+
+常用参数：
+
+以下**当前工作**指当前已修改和已暂存的文件改动
+
+- `git diff`：比较已修改文件和已暂存文件之间的差异
+- `git diff --cached`：比较已暂存文件和上次提交之间的差异
+- `git diff [--] <path>...`：比较已修改文件和已暂存文件之间指定文件或目录的差异
+- `git diff --cached [--] <path>...`：比较已暂存文件和上次提交之间指定文件或目录的差异
+- `git diff HEAD`：比较当前工作和上次提交的差异
+- `git diff <commit>`：比较当前工作和commit之间的差异
+- `git diff <commit> [--] <path>...`：比较当前工作和commit之间指定文件或目录的差异
+- `git diff --cached HEAD`：比较已暂存文件和上次提交的差异
+- `git diff --cached <commit>`：比较已暂存文件和commit之间的差异
+- `git diff --cached <commit> [--] <path>...`：比较已暂存文件与commit之间指定文件或目录的差异
+- `git diff <commit1> <commit2>`：比较commit1与commit2之间的差异
+
+#### 4、提交更新
+
+基本命令为`git commit`，使用该命令会把**暂存区域**内的文件快照提交至Git目录中。运行该命令会启动文本编辑器以便输入本次提交的说明，另外也可以使用`-m`参数后跟提交说明的方式使得在一行命令中提交更新：
+
+	git commit -m "Fix Bug #182: Fix benchmarks for speed"
+
+若要把所有已经跟踪过的文件暂存起来一并提交（即把已修改和已暂存的文件一并提交），只需加上`-a`参数：
+
+	git commit -a -m "added new benchmarks"
+
+常用参数：
+
+- `git commit --author <author>`：以新作者提交
+- `git commit -i <file>`：将指定文件和已暂存文件一并提交（该文件可以为已暂存文件）
+- `git commit -o <file>`：只提交指定文件（该文件可以为已暂存文件）
+- `git commit --amend`：修改最后一次提交
+	- `git commit --amend -m <message>`： 重新编辑提交说明
+	- `git commit --amend --author <author>`：重新编辑提交作者
+
+若要修改提交的文件快照，详见<a href="#menuIndex9">撤销操作</a>。
+
+### Git的基本工作扩展
+
+#### 1、查看提交历史
+
+基本命令为`git log`，运行该命令将显示
+
+	$ git log
+	commit de20ac48f5863fd9a3f2140bda9e4e27e8e286f6
+	Author: chengshiwen <chengshiwen0103@gmail.com>
+	Date:   Fri Apr 18 13:05:02 2014 +0800
+	
+	    Hide email in MenuBar
+	
+	commit e073a207495d092b48f9fbbea543f82474655327
+	Author: chengshiwen <chengshiwen0103@gmail.com>
+	Date:   Thu Apr 17 20:25:30 2014 +0800
+	
+	    Add fadein and fadeout effects in homepage's MenuBar
+
+常用参数：
+
+- `git log -p`：展开显示每次提交的内容差异
+- `git log -<n>`：查看最近n次提交
+- `git log --stat`：查看每个提交文件的变动, 以及这些文件简要的增改行数统计
+- `git log --oneline`：将每个提交放在一行显示
+- `git log --graph`：显示ASCII图形表示的分支合并历史，配合`--oneline`更为简洁
+- `git log --name-status`：显示新增、修改、删除的文件清单
+- `git log [--] <filepattern>`：查看文件或目录的提交记录
+- `git log --grep <pattern>`：搜索提交说明中匹配pattern的提交（如果要得到同时满足这两个选项搜索条件的提交，就必须用`--all-match`选项。否则，满足任意一个条件的提交都会被匹配出来）
+- `git log --pretty=format:<string>`：使用特定格式显示历史提交信息
+	- `%H`	：提交对象（commit）的完整哈希字串
+	- `%h`	：提交对象的简短哈希字串
+	- `%an`：作者（author）的名字
+	- `%ae`：作者的电子邮件地址
+	- `%ad`：作者修订日期（可以用 -date= 选项定制格式）
+	- `%ar`：作者修订日期，按多久以前的方式显示
+	- `%s`：提交说明
+	- 例如：`git log --pretty=format:"%h %s" --graph`
+- `git log --author=<author>`：仅显示指定作者相关的提交
+- `git log [--after|--since]=<yyyy-mm-ss>`：仅显示指定时间之后的提交
+- `git log [--before|--until]=<yyyy-mm-ss>`：仅显示指定时间之前的提交
+	- 例如：`git log --since="2014-04-01" --before="2014-04-16"`
+- `git log --diff-filter=A --summary`：列出版本库中曾添加文件的提交，后面再跟加`| grep create`可仅显示所有添加过的历史文件
+- `git log --diff-filter=D --summary`：列出版本库中曾删除文件的提交，后面再跟加`| grep delete`可仅显示所有已删除的历史文件
+
+#### 2、保存当前工作
+
+将当前工作（即工作目录和暂存区的当前状态）保存到**贮存栈**，同时让工作目录回退至上次提交后的干净状态。
+
+	$ git stash
+
+常用参数：<br/>
+以下`<stash>`形如`stash@{id}`，是对贮存栈中索引为`id`的工作的引用，`id`从栈顶到栈低依次为0，1，2，…；若不加`<stash>`参数，默认为栈顶工作的引用`stash@{0}`（即最近保存的一次工作的引用）。
+
+- `git stash [save <message>]`：附加信息并以入栈方式将当前工作保存到贮存栈中；若不加参数，则默认附加最近提交的说明信息
+- `git stash pop [<stash>]`：恢复贮存栈中引用为`<stash>`的工作，并将其从贮存栈中删除
+- `git stash apply [<stash>]`：恢复贮存栈中引用为`<stash>`的工作，但贮存栈不删除该工作
+- `git stash drop [<stash>]`：删除贮存栈中引用为`<stash>`的工作
+- `git stash list`：列出贮存栈中的所有工作
+- `git stash show [<stash>]`：显示贮存栈中引用为`<stash>`的工作的修改记录
+- `git stash clear`：清除贮存栈中所有保留的工作
+- `git stash branch <branchname> [<stash>]`：基于指定工作创建新分支，完全恢复该工作被保存前的状态（新建一个最新提交为`<stash>`创建时所在的提交、名为`<branchname>`的分支，同时切换到该分支，恢复贮存栈中引用为`<stash>`的工作，并将其从贮存栈中删除）
+
+#### 3、移除文件
+
+- `rm`：从工作目录中删除文件，但文件名仍在已跟踪文件列表中
+- `git rm`：从工作目录中删除文件，并将文件名从已跟踪文件列表中移除
+- `git rm --cached`：仅仅将文件名从已跟踪文件列表中移除，不对工作目录中的文件进行其它操作
+- `git rm -f`：删除之前若文件修改过且已放到暂存区，则须强制删除
+- `git rm -r`：允许递归删除
+
+上述命令均是在提交后生效。
+
+#### 4、移动或重命名文件
+
+要对文件进行移动或重命名，可以执行
+
+	$ git mv <file_from> <file_to>
+
+其等价于
+
+	$ mv <file_from> <file_to>
+	$ git rm <file_from>
+	$ git add <file_to>
+
+如果直接使用`mv`命令，会导致原文件名仍在已跟踪文件列表中。
+
+#### 5、清除未跟踪文件
+
+清除未跟踪文件使用`git clean`命令：
+
+- `git clean -n`：显示将要清除的文件和目录
+- `git clean -f`：强制清除文件（不包括目录）
+- `git clean -df`：强制清除所有文件和目录
+
+若要同时再移除被忽略的文件或目录，加上`-x`参数；若只移除被忽略的文件或目录，加上`-X`参数。
+
+#### 6、标签
+
+Git可以对版本中的某一个提交打上标签。例如，在发布某个软件版本（比如v1.0等）时，这个命令将非常有用。
+
+##### 列出所有标签
+
+	git tag
+		$ git tag
+		v1.0
+		v1.1.0
+
+	git tag -n[<num>]			# 同时列出每条标签说明的<num>行
+		$ git tag -n1
+		v1.0            add public download tag
+		v1.1.0          InputHelper Release Version 1.1.0
+
+	git tag -l <pattern>			# 列出所有匹配pattern的标签
+		$ git tag -l 'v1.4.2.*'
+		v1.4.2.1
+		v1.4.2.2
+		v1.4.2.3
+		v1.4.2.4
+
+##### 新建标签
+
+Git使用的标签有两种类型：轻量级的（lightweight）和含附注的（annotated）。**轻量级标签**是一个指向特定提交对象的引用，其保存着对应提交对象的校验和信息。而**含附注标签**，实际上是存储在仓库中的一个独立对象，它有自身的校验和信息，包含着标签的名字，电子邮件地址和日期，以及标签说明。一般都建议使用含附注型的标签，以便保留相关信息；当然，如果只是临时性加注标签，或者不需要旁注额外信息，则建议用轻量级标签。
+
+**含附注标签**
+
+用`-a`（_annotated_）指定标签名字，`-m`参数指定了对应的标签说明，Git会将此说明一同保存在标签对象中。如果没有给出该选项，Git会启动文本编辑软件供你输入标签说明。
+
+	$ git tag -a <tagname> [-m <msg>]
+
+或不加`-a`但加上`-m`，则默认`-a`：
+
+	$ git tag <tagname> -m <msg>
+
+上述命令将对当前提交创建标签，若要对历史的某个提交加注标签，使用`<commit>`指定该提交的commit哈希值：
+
+	$ git tag -a <tagname> <commit> [-m <msg>]	或：
+	$ git tag <tagname> <commit> -m <msg>
+
+新建标签名必须是仓库中还不存在的，否则将不能添加标签；当然，可以加上`-f`参数强制替换已存在的标签。
+
+可以使用`git show`命令查看相应标签的版本信息，并连同显示打标签时的提交对象：
+
+	$ git show v1.1.0
+	tag v1.1.0
+	Tagger: Shiwen Cheng <chengshiwen0103@gmail.com>
+	Date:   Tue Nov 19 17:26:33 2013 +0800
+	
+	InputHelper Release Version 1.1.0
+	
+	commit 0a4ffd855cef93d7cddbb5a5f135ea3b46d0fb71
+	Author: Shiwen Cheng <chengshiwen0103@gmail.com>
+	Date:   Tue Nov 19 17:22:15 2013 +0800
+	
+	    updated README.md
+
+**轻量级标签**
+
+一个`-a`或`-m`选项都不用，直接给出标签名字即可，若不指定commit哈希值则默认最新提交：
+
+	$ git tag <tagname> [<commit>]
+
+##### 删除标签
+
+	$ git tag -d <tagname>
+
+### 撤销操作
+
+#### git reset
+#### git revert
+#### git checkout
+#### git rebase
+
+### 远程交互
+
+#### git remote
+#### git push
+#### git fetch
+#### git pull
+
+### 分支操作
+
+#### git branch
+#### git checkout
+#### git merge
+
+### Git其它命令
+
+#### git config
+#### git show
+#### git grep
+#### git bisect
+#### git help
 
 
 ## Git文件忽略
