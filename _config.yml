@@ -2,7 +2,7 @@ name: 奇小在的博客
 title: 奇小在的博客
 url: http://cheng-shiwen.com
 
-markdown: rdiscount
+markdown: kramdown
 pygments: true
 permalink: /article/:title
 paginate: 6
