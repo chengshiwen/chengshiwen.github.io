@@ -135,6 +135,7 @@ $(document).ready(function(){
 
                 var menuIndexTop = $('#menuIndex').offset().top;
                 var menuIndexLeft = $('#menuIndex').offset().left;
+                var menuIndexWidth = $('#content').width() * 0.22;
 
                 $(window).scroll(function() {
                     waitForFinalEvent(function() {
@@ -146,7 +147,8 @@ $(document).ready(function(){
                             $('#menuIndex').css({
                                 position:'fixed',
                                 top:'25px',
-                                left:menuIndexLeft
+                                left:menuIndexLeft,
+                                width:menuIndexWidth
                             });
                         } else {
                             $('#menuIndex').css({
