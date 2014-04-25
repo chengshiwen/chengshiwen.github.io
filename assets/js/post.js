@@ -135,7 +135,7 @@ $(document).ready(function(){
 
                 var menuIndexTop = $('#menuIndex').offset().top;
                 var menuIndexLeft = $('#menuIndex').offset().left;
-                var menuIndexWidth = $('#content').width() * 0.22;
+                var menuIndexWidth = ($(window).width() < 1380) ? $('#menuIndex').width() : $('#content').width() * 0.22;
 
                 $(window).scroll(function() {
                     waitForFinalEvent(function() {

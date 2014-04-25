@@ -322,7 +322,7 @@ Git的基本工作流程如下：
 - `git diff <commit1> <commit2>`：比较commit1与commit2之间的差异
 - `git diff --check`：列出所有的尾随空白符（trailing whitespace，建议不要在提交更新中提交多余的尾随空白符）
 
-#### 4、提交更新 {#git-commit}
+#### 4、提交快照 {#git-commit}
 
 基本命令为`git commit`，使用该命令会把**暂存区域**内的文件快照提交至Git目录中。运行该命令会启动文本编辑器以便输入本次提交的说明，另外也可以使用`-m`参数后跟提交说明的方式使得在一行命令中提交更新：
 
@@ -416,8 +416,8 @@ Git的基本工作流程如下：
 - `git rm -f <file>...`：删除之前若文件修改过且已放到暂存区域，则须强制删除
 - `git rm -r <file>...`：允许递归删除
 
-`rm`删除文件后，该删除操作会出现在`Changes not staged for commit`列表中，但该文件仍在暂存区域，可执行`git ls-files --deleted`查看`rm`删除的文件；<br/>
-`git rm`删除文件后，该删除操作会出现在`Changes to be committed`列表中，且该文件已从暂存区域中移除。<br/>
+`rm`删除文件后，该删除操作会出现在`Changes not staged for commit`中，但该文件仍在暂存区域，可执行`git ls-files --deleted`查看`rm`删除的文件；<br/>
+`git rm`删除文件后，该删除操作会出现在`Changes to be committed`中，且该文件已从暂存区域中移除，可执行`git ls-files --cached`查看暂存区域文件的变化。<br/>
 因此，`git rm` + `git commit -m <message>`相当于`rm` + `git commit -a -m <message>`。
 
 **注**：上述命令均是在提交后生效。
@@ -475,7 +475,7 @@ Git使用的标签有两种类型：轻量级的（lightweight）和含附注的
 
 **含附注标签**
 
-用`-a`（_annotated_）指定标签名字，`-m`参数指定了对应的标签说明，Git会将此说明一同保存在标签对象中。如果没有给出该选项，Git会启动文本编辑软件供你输入标签说明。
+用`-a`（annotated）指定标签名字，`-m`参数指定了对应的标签说明，Git会将此说明一同保存在标签对象中。如果没有给出该选项，Git会启动文本编辑软件供你输入标签说明。
 
     $ git tag -a <tagname> [-m <msg>]
 
@@ -551,9 +551,33 @@ Git使用的标签有两种类型：轻量级的（lightweight）和含附注的
 
 ### 撤销操作
 
-#### git reset
+#### 重置
 
-#### git revert
+基本命令为`git reset`，其作用是将当前分支头指针（HEAD指针）重置为指定状态，常用命令：
+
+- `git reset [<commit>] [--] <paths>...`
+    - 将暂存区域中指定路径的文件重置为指定commit（不指定则默认为HEAD）时的状态，但不会改变工作目录及当前分支，其相当于`git add <paths>`的反向操作
+- `git reset (--soft|--mixed|--hard) [<commit>]`
+    - 将当前分支头指针（HEAD指针）重置为指定commit（不指定则默认为HEAD），并根据第一个参数决定如何更新暂存区域（将其重置为指定commit时的状态）和工作目录
+        - `--soft`：暂存区域和工作目录中的内容不作任何改变，仅仅把HEAD指向commit。该命令执行后，自从commit以来（不包括该commit）的所有改动文件都处于已暂存状态，显示在`Changes to be committed`中。
+        - `--mixed`：仅重置暂存区域，但不对工作目录作任何改变（默认此参数）。该命令执行后，原已暂存文件将变成相应的未跟踪状态或者已修改状态，并提示重置后未暂存的改动（Unstaged changes after reset）。
+        - `--hard`：重置暂存区域和工作目录。该命令执行后，自从commit以来在工作目录中已跟踪文件的任何改动都被丢弃。常用于将当前分支完全重置为过去的某个提交状态，或完全丢弃工作目录中的所有文件改动。
+
+#### 撤销
+
+基本命令为`git revert`，其作用是撤销过去的某次提交（大多是错误或不完全的提交），并用一个新的commit来记录这个撤销操作（即那次提交的反向改动）。这个命令要求工作目录必须是干净的。
+
+常用参数：
+
+- `git revert <commit>`：撤销指定的commit，并启动默认编辑器编辑提交说明，完成后自动提交
+- `git revert --no-edit <commit>`：撤销指定的commit，但不启动默认编辑器，以默认提交说明自动提交
+- `git revert -n <commit>`：即`--no-commit`，撤销指定的commit，但不自动生成新的commit，撤销操作会被保留到暂存区域
+- `git revert -n <commit1>..<commit2>`：撤销commit1（包含）至commit2（不包含）的所有提交，其它同上
+
+`git revert`和`git reset`区别：
+
+- `git revert`：撤销过去的某次提交后，不会对过去的提交历史进行修改，只将这个撤销操作保存为一个新的commit，故HEAD指针向前移动。
+- `git reset`：将当前分支头指针重置为过去的某次提交，当该提交不是HEAD时会对过去的提交历史进行修改（会把该提交之后的所有提交历史删除），而当该提交是HEAD时会对暂存区域或工作目录进行重置，并且都不会自动生成新的commit，HEAD指针不移动或向后移动。
 
 #### git rebase
 
