@@ -16,17 +16,12 @@ Torvalds开始着手开发Git是为了作为一种过渡方案来替代BitKeeper
 
 Git和其它版本控制系统的主要差别在于，Git只关心文件数据的整体是否发生变化，每个版本存储改动过的所有文件，而大多数其它系统则只关心文件内容的变化差异，每个版本存储变化前后的差异数据。相比其它版本控制工具，Git具有如下优点：
 
-- 快速
-- 设计简单
 - 完全分布式
-- 离线工作
-- 支持回退
-- 保持工作独立
-- 不会丢失版本库
-- 更少的仓库污染
-- 随时随地自由提交
+- 设计简单，快速
 - 出色的合并追踪能力
-- 对非线性开发模式的强力支持
+- 离线工作，随时随地自由提交
+- 保持工作独立，更好地协作开发
+- 不会丢失版本库，更少的仓库污染
 - 超大规模项目的高效管理能力
 
 
@@ -116,14 +111,13 @@ Git仓库用于记录保存项目的元数据和对象数据，包括所有的�
 
 #### 4、Git图形化工具
 
-- [GitX](http://gitx.frim.nl)（Mac，开源免费）
 - [GitX (L)](http://gitx.laullon.com)（Mac，开源免费）
 - [SourceTree](http://www.sourcetreeapp.com)（Windows / Mac，免费）
 - [TortoiseGit](https://code.google.com/p/tortoisegit/)（Windows，免费）
 - [GitHub for Mac](https://mac.github.com)，[GitHub for Windows](https://windows.github.com)（Mac / Windows，免费）
 - [GitEye](http://www.collab.net/giteyeapp)（Windows / Linux / Mac，免费）
-- [git-cola](https://code.google.com/p/gitextensions)（Windows / Linux / Mac，开源免费）
-- [Git Extensions](http://git-cola.github.io)（Windows / Linux / Mac，免费）
+- [git-cola](http://git-cola.github.io)（Windows / Linux / Mac，开源免费）
+- [Git Extensions](https://code.google.com/p/gitextensions)（Windows / Linux / Mac，免费）
 
 ### Git配置
 
@@ -268,7 +262,7 @@ Git的基本工作流程如下：
 
 `git add`可以将已修改的文件更新至暂存区域，变成已暂存状态。例如，暂存已修改的`.gitignore`文件：
 
-    git add .gitignore
+    $ git add .gitignore
 
 常用参数
 
@@ -326,11 +320,11 @@ Git的基本工作流程如下：
 
 基本命令为`git commit`，使用该命令会把**暂存区域**内的文件快照提交至Git目录中。运行该命令会启动文本编辑器以便输入本次提交的说明，另外也可以使用`-m`参数后跟提交说明的方式使得在一行命令中提交更新：
 
-    git commit -m "Fix Bug #182: Fix benchmarks for speed"
+    $ git commit -m "Fix Bug #182: Fix benchmarks for speed"
 
 若要把所有已经跟踪过的文件暂存起来一并提交（即把已修改和已暂存的文件一并提交），只需加上`-a`参数：
 
-    git commit -a -m "added new benchmarks"
+    $ git commit -a -m "added new benchmarks"
 
 常用参数：
 
@@ -341,7 +335,7 @@ Git的基本工作流程如下：
     - `git commit --amend -m <message>`： 重新编辑提交说明
     - `git commit --amend --author <author>`：重新编辑提交作者
 
-若要修改提交的文件快照，详见<a href="#menuIndex9">撤销操作</a>。
+若要修改提交的文件快照，详见<a href="#menuIndex11">撤销操作</a>。
 
 ### Git的基本工作扩展
 
@@ -549,21 +543,308 @@ Git使用的标签有两种类型：轻量级的（lightweight）和含附注的
 
     $ git fetch origin --tags
 
+### 分支操作
+
+#### 1、分支管理 {#git-branch}
+
+基本命令为`git branch`，其作用是列出本地所有分支：
+
+    $ git branch
+      iss53
+    * master
+      testing
+
+其中`*`字符表示当前所在的分支。若要查看各个分支最后一个提交对象的信息，运行`git branch -v`：
+
+    $ git branch -v
+      iss53   93b412c fix javascript issue
+    * master  7a98805 Merge branch 'iss53'
+      testing 782fd34 add scott to the author list in the readmes
+
+常用参数：
+
+- `git branch -a`：列出本地和远程的所有分支
+- `git branch -r`：列出远程所有分支
+- `git branch (-d|-D) <branch>`：删除或强制删除branch分支
+- `git branch (-m|-M) [<oldbranch>] <newbranch>`：将oldbranch分支名重命名为newbranch，不指定oldbranch则默认为当前分支
+- `git branch [-f] <branch> [<start-point>]`：基于当前分支新建（或强制新建）一个branch分支，该branch分支头指向start-point（可以为已有的分支、提交哈希值或标签），若不指定start-point则默认为当前分支。该命令执行后仍处于当前分支
+- `git branch (--merged|--no-merged)`：从本地分支中筛选出已经（或尚未）与当前分支合并的分支
+
+#### 2、分支签出 {#git-checkout}
+
+基本命令为`git checkout`，其作用是签出分支到工作目录（即切换到指定分支），例如切换到testing分支：
+
+    $ git checkout testing
+
+上述testing分支必须为存在的分支，若要新建分支并切换到该分支，可以使用如下命令：
+
+    $ git checkout -b <branch>
+
+此外，`git checkout`还可以签出指定版本的文件用以覆盖工作目录中对应的文件，即放弃工作目录中的指定文件的改动（详见<a href="#discard-changes">取消已修改或已暂存文件</a>）。
+
+常用参数：
+
+- `git checkout <branch>`：切换到指定分支
+- `git checkout (-b|-B) <branch>`：新建分支或重置已存在分支并切换到该分支
+- `git checkout -f <branch>`：强制切换分支，并丢弃当前改动
+- `git checkout [--detach] [<commit>|<tagname>]`：切换到指定的commit或标签，但此时处于**detached HEAD**状态（游离状态或匿名分支状态）。
+
+#### 3、分支合并 {#git-merge}
+
+基本命令为`git merge`，其作用是将指定分支（或指定提交）自共同祖先分叉以来的改动合并到当前分支，命令格式为：
+
+    $ git merge <commit>
+
+**快进合并**（Fast-forward）
+
+当指定分支（提交）是当前分支的子孙（即后继提交），那么合并只会移动当前分支指针到指定分支（提交），不会创建新的合并提交记录。例如当前处于master分支，
+
+              A---B---C topic
+             /
+        D---E master
+
+运行
+
+    $ git merge topic
+
+得到
+
+        D---E---A---B---C topic, master
+
+快进合并是默认方式，若想每次合并都创建一个新的提交记录，使用`–-no-ff`参数，例如上述例子运行
+
+    $ git merge –-no-ff topic
+
+得到
+
+              A---B---C topic
+             /         \
+        D---E-----------F master
+
+**三方合并**
+
+若指定分支（提交）与当前分支互不为祖先，Git会先找到它们最近的共同祖先（即开始分叉的提交），然后再与两个分支上的最新提交进行一次简单的三方合并计算，最后，Git对三方合并的结果作一新的快照，并自动创建一个指向它的提交对象。
+
+              A---B---C topic
+             /
+        D---E---F---G master
+
+运行
+
+    $ git merge topic
+
+得到
+
+              A---B---C topic
+             /         \
+        D---E---F---G---H master
+
+**合并冲突及解决**
+
+如果在不同的分支中都修改了同一个文件的同一部分，Git就无法判断应用谁的修改，从而出现合并冲突，这种冲突只能由人来解决。该冲突类似下面的结果
+
+    $ git merge topic
+    Auto-merging index.html
+    CONFLICT (content): Merge conflict in index.html
+    Automatic merge failed; fix conflicts and then commit the result.
+
+Git作了合并，但没有提交，它会停下来等你解决冲突。此时可以用`git status`查看哪些文件在合并时发生冲突：
+
+    $ git status
+    On branch master
+    You have unmerged paths.
+      (fix conflicts and run "git commit")
+
+    Unmerged paths:
+      (use "git add <file>..." to mark resolution)
+
+            both modified:      index.html
+
+    no changes added to commit (use "git add" and/or "git commit -a")
+
+任何包含未解决冲突的文件都会以未合并（Unmerged）的状态列出。Git会在有冲突的文件里加入标准的冲突解决标记，可以通过它们来手工定位并解决这些冲突。可以看到此文件包含类似下面这样的部分：
+
+    <<<<<<< HEAD
+    <div id="footer">Copyright by cheng-shiwen</div>
+    =======
+    <div id="footer">
+        Contact me: chengshiwen0103@gmail.com
+    </div>
+    >>>>>>> topic
+
+其中`=======`隔开的上半部分，是`HEAD`（即master分支，在运行merge命令时所切换到的分支）中的内容，下半部分是在`topic`分支中的内容。解决冲突的办法是二者选其一或将二者整合到一起。例如可以通过把这段内容替换为下面这样来解决：
+
+    <div id="footer">
+        Contact me: chengshiwen0103@gmail.com
+        Copyright by cheng-shiwen
+    </div>
+
+在解决了所有文件里的所有冲突后，运行`git add`将它们的快照保存到暂存区域，再使用`git commit`来完成这次合并提交。
+
+常用参数：
+
+- `git merge -m <msg> <commit>`：如果产生新的合并提交，则附加msg说明
+- `git merge --no-commit <commit>`：合并成功后不会自动产生新的提交，用户可以在下次提交前对这次的合并结果进行修改和调整
+- `git merge --abort`：遇到合并冲突时，此命令将终止合并，并恢复未合并之前的状态
+
+### 远程交互
+
+要参与任何一个Git项目的协作，必须要了解该如何管理远程仓库。远程仓库是指托管在网络上的项目仓库，可能会有好多个，其中有些你只能读，另外有些可以写。同他人协作开发某个项目时，需要管理这些远程仓库，以便推送或拉取数据，分享各自的工作进展。管理远程仓库的工作，包括添加远程仓库，移除废弃的远程仓库，管理各式远程仓库分支等。
+
+#### 1、管理远程仓库 {#git-remote}
+
+**查看远程仓库**
+
+基本命令为`git remote`，其作用是查看当前配置有哪些远程仓库，它会列出每个远程仓库的简短名字。在克隆完某个项目后，至少可以看到一个名为`origin`的远程仓库，Git默认使用这个名字来标识你所克隆的原始仓库：
+
+    $ git remote
+    origin
+
+加上`-v`选项，显示对应的克隆地址：
+
+    $ git remote -v
+    origin  git@github.com:cheng-shiwen/InputHelper.git (fetch)
+    origin  git@github.com:cheng-shiwen/InputHelper.git (push)
+
+**添加远程仓库**
+
+要添加一个新的远程仓库，可以指定一个简单的名字，以便将来引用，命令格式为：
+
+    $ git remote add <shortname> <url>
+
+例如：
+
+    $ git remote add upstream https://github.com/xgenvn/InputHelper.git
+    $ git remote -v
+    origin  git@github.com:cheng-shiwen/InputHelper.git (fetch)
+    origin  git@github.com:cheng-shiwen/InputHelper.git (push)
+    upstream    https://github.com/xgenvn/InputHelper.git (fetch)
+    upstream    https://github.com/xgenvn/InputHelper.git (push)
+
+现在要拉取所有xgenvn有的，但本地仓库没有的信息，可以运行`git fetch upstream`：
+
+    $ git fetch upstream
+    remote: Counting objects: 12, done.
+    remote: Compressing objects: 100% (10/10), done.
+    remote: Total 12 (delta 3), reused 9 (delta 2)
+    Unpacking objects: 100% (12/12), done.
+    From https://github.com/xgenvn/InputHelper
+     * [new branch]      master     -> upstream/master
+    From https://github.com/xgenvn/InputHelper
+     * [new tag]         v1.0.1     -> v1.0.1
+
+常用参数：
+
+- `git remote rename <old> <new>`：重命名远程仓库
+- `git remote rm <name>`：删除名为name的远程仓库
+- `git remote [-v] show <name>`：查看远程仓库信息
+- `git remote prune <name>`：删除不存在对应远程分支的本地分支
+
+#### 2、推送数据到远程仓库 {#git-push}
+
+基本命令为`git push`，其作用是将本地仓库中的数据推送到远程仓库，命令格式为：
+
+    $ git push <remote> <branch>
+
+其将本地branch分支推送到remote远程仓库的相同分支。只有在remote服务器上有写权限，或者同一时刻没有其他人在推送数据，这条命令才会如期完成任务。如果在你推数据前，已经有其他人推送了若干更新，那你的推送操作就会被驳回。你必须先把他们的更新拉取到本地，合并到自己的项目中，然后才可以再次推送。
+
+常用参数：
+
+- `git push`：缺省推送，默认远程仓库为origin，默认推送分支信息显示在`git remote show origin`结果中的`Local ref configured for 'git push'`下
+- `git push <remote> <lbranch>:[<rbranch>]`：将本地lbranch分支推送到remote远程仓库的rbranch分支。若rbranch缺省则默认为lbranch，等同于`git push <remote> <lbranch>`
+- `git push <remote> :<branch>`：将空推送到remote远程仓库的branch分支，即删除remote远程仓库的branch分支
+- `git push <remote> --delete <branch>`：删除remote远程仓库的branch分支
+- `git push <remote> -f <lbranch>:[<rbranch>]`：将本地lbranch分支强制推送到remote远程仓库的rbranch分支
+
+#### 3、从远程仓库拉取数据 {#git-fetch}
+
+基本命令为`git fetch`，其作用是到远程仓库中拉取所有本地仓库中还没有的数据，但不会自动将这些数据合并到当前工作分支，例如：
+
+    $ git fetch origin
+
+常用参数：
+
+- `git fetch [<remote>]`：到remote远程仓库拉取所有本地仓库中还没有的数据，不指定remote则默认为origin
+- `git fetch <remote> <brach>`：将remote远程仓库的branch分支拉取到本地，同时用`FETCH_HEAD`指针指向它
+- `git fetch --all`：拉取所有远程仓库
+- `git fetch -p`：删除不存在对应远程分支的本地分支
+
+**强制更新**
+
+强制推送分支到远程仓库使用`git push <remote> -f <lbranch>:[<rbranch>]`，但将远程仓库的rbranch分支强制更新到本地lbranch分支，有两种方法：<br/>
+第一种：首先处于lbranch分支上，运行
+
+    $ git fetch <remote> <rbranch>
+    $ git reset --hard FETCH_HEAD
+
+第二种：首先处于非lbranch分支的其它分支上，运行
+
+    $ git fetch <remote> -f <rbranch>:<lbranch>
+
+如果处于lbranch分支运行上述命令，只有当本地仓库是裸仓库时才能成功，否则会出现Refusing to fetch into current branch refs/heads/<lbranch> of non-bare repository的拒绝信息，这是因为lbranch分支本身就正处于工作状态，Git机制不允许通过fetch方式再去更新它。
+
+#### 4、从远程仓库拉取数据并合并 {#git-pull}
+
+基本命令为`git pull`，其作用是从远程仓库自动拉取数据到本地（Fetch），然后将远端分支自动合并到本地仓库中当前分支(Merge)，命令格式为：
+
+    $ git pull <remote> <brach>
+
+其将remote远程仓库的branch分支拉取到本地，然后将其合并到本地当前分支。例如当前处于master分支，
+
+              A---B---C master on origin
+             /
+        D---E---F---G master
+
+运行
+
+    $ git pull origin master
+
+得到
+
+              A---B---C remotes/origin/master
+             /         \
+        D---E---F---G---H master
+
+常用参数：
+
+- `git pull [<remote>]`：到remote远程仓库拉取所有本地仓库中还没有的数据并进行默认合并操作，remote默认为origin，默认合并分支信息显示在`git remote show origin`结果中的`Local branch configured for 'git pull'`下
+- `git pull <remote> <rbranch>:<lbranch>`：将remote远程仓库的rbranch分支拉取到本地，然后将其合并到本地lbranch分支
+
+#### 5、工作流程建议
+
+如果是个人工作，建议如下：
+
+    $ make changes              # 作出改动
+    $ git status or git diff    # 查看文件状态或改动差异（建议）
+    $ git add                   # 暂存文件
+    $ git commit                # 提交改动
+    $ git push                  # 推送提交
+
+如果是多人协作开发，建议如下：
+
+    $ git pull                  # 拉取最新提交并合并（建议）
+    $ make changes              # 作出改动
+    $ git status or git diff    # 查看文件状态或改动差异（建议）
+    $ git add                   # 暂存文件
+    $ git pull                  # 再次拉取最新提交并合并（强烈建议，否则产生一条不必要的合并提交）
+    $ git commit                # 提交改动
+    $ git push                  # 推送提交
+
 ### 撤销操作
 
-#### 重置
+#### 1、重置 {#git-reset}
 
-基本命令为`git reset`，其作用是将当前分支头指针（HEAD指针）重置为指定状态，常用命令：
+基本命令为`git reset`，其作用是将当前分支指针（HEAD指针）重置为指定状态，常用命令：
 
 - `git reset [<commit>] [--] <paths>...`
-    - 将暂存区域中指定路径的文件重置为指定commit（不指定则默认为HEAD）时的状态，但不会改变工作目录及当前分支，其相当于`git add <paths>`的反向操作
+    - 将暂存区域中指定路径的文件重置为指定commit（不指定则默认为HEAD）时的状态，但不会改变工作目录及当前分支，其相当于`git add <paths>`的反向操作。该命令执行后，自从commit以来指定文件的所有改动都显示在`Changes not staged for commit`中，而这些改动的反向改动会显示在`Changes to be committed`中。
 - `git reset (--soft|--mixed|--hard) [<commit>]`
-    - 将当前分支头指针（HEAD指针）重置为指定commit（不指定则默认为HEAD），并根据第一个参数决定如何更新暂存区域（将其重置为指定commit时的状态）和工作目录
-        - `--soft`：暂存区域和工作目录中的内容不作任何改变，仅仅把HEAD指向commit。该命令执行后，自从commit以来（不包括该commit）的所有改动文件都处于已暂存状态，显示在`Changes to be committed`中。
-        - `--mixed`：仅重置暂存区域，但不对工作目录作任何改变（默认此参数）。该命令执行后，原已暂存文件将变成相应的未跟踪状态或者已修改状态，并提示重置后未暂存的改动（Unstaged changes after reset）。
-        - `--hard`：重置暂存区域和工作目录。该命令执行后，自从commit以来在工作目录中已跟踪文件的任何改动都被丢弃。常用于将当前分支完全重置为过去的某个提交状态，或完全丢弃工作目录中的所有文件改动。
+    - 将当前分支指针（HEAD指针）重置为指定commit（不指定则默认为HEAD），并根据第一个参数决定如何更新暂存区域（将其重置为指定commit时的状态）和工作目录
+    - `--soft`：暂存区域和工作目录中的内容不作任何改变，仅仅把HEAD指向commit。该命令执行后，自从commit以来的所有改动文件都处于已暂存状态，显示在`Changes to be committed`中。
+    - `--mixed`：仅重置暂存区域，但不对工作目录作任何改变（默认此参数）。该命令执行后，原已暂存文件将变成相应的已修改状态或未跟踪状态，并提示重置后未暂存的改动（Unstaged changes after reset）。
+    - `--hard`：重置暂存区域和工作目录。该命令执行后，自从commit以来在工作目录中已跟踪文件的任何改动都被丢弃。常用于将当前分支完全重置为过去的某个提交状态，或完全丢弃工作目录中的所有文件改动。
 
-#### 撤销
+#### 2、撤销 {#git-revert}
 
 基本命令为`git revert`，其作用是撤销过去的某次提交（大多是错误或不完全的提交），并用一个新的commit来记录这个撤销操作（即那次提交的反向改动）。这个命令要求工作目录必须是干净的。
 
@@ -577,39 +858,311 @@ Git使用的标签有两种类型：轻量级的（lightweight）和含附注的
 `git revert`和`git reset`区别：
 
 - `git revert`：撤销过去的某次提交后，不会对过去的提交历史进行修改，只将这个撤销操作保存为一个新的commit，故HEAD指针向前移动。
-- `git reset`：将当前分支头指针重置为过去的某次提交，当该提交不是HEAD时会对过去的提交历史进行修改（会把该提交之后的所有提交历史删除），而当该提交是HEAD时会对暂存区域或工作目录进行重置，并且都不会自动生成新的commit，HEAD指针不移动或向后移动。
+- `git reset`：重置为过去的某次提交后，当该提交不是HEAD时会对过去的提交历史进行修改（会把该提交之后的所有提交历史删除），而当该提交是HEAD时会对暂存区域或工作目录进行重置，并且都不会自动生成新的commit，HEAD指针不移动或向后移动。
 
-#### git rebase
+#### 3、变基 {#git-rebase}
 
-### 远程交互
+基本命令为`git rebase`，其作用对历史提交执行变基操作，即可以实现将指定范围的提交“嫁接”到另外一个提交之上。常用参数：
 
-#### git remote
+- `git rebase <upstream> [<branch>]`
+    - 将branch分支作的且不在upstream分支中的提交嫁接到upstream分支上。若不指定branch，则默认当前分支
+    - 例如：
 
-#### git push
+                      A---B---C topic
+                     /
+                D---E---F---G master
+            运行
+                $ git rebase master         或
+                $ git rebase master topic
+            得到
+                              A'--B'--C' topic
+                             /
+                D---E---F---G master
 
-#### git fetch
+    - 如果upstream分支已经包含branch分支所作的改动，则branch分支中的这次改动会被跳过（其中A和A'作了相同的修改，但是不同的提交）：
 
-#### git pull
+                      A---B---C topic
+                     /
+                D---E---A'---F master
+            会得到
+                               B'---C' topic
+                              /
+                D---E---A'---F master
 
-### 分支操作
+- `git rebase --onto <newbase> <upstream> [<branch>]`
+    - 将branch分支作的且不在upstream分支中的提交嫁接到newbase分支上
+    - 例如：
 
-#### git branch
+                o---o---o---o---o  master
+                     \
+                      o---o---o---o---o  next
+                                       \
+                                        o---o---o  topic
+            运行
+                $ git rebase --onto master next topic
+            得到
+                o---o---o---o---o  master
+                    |            \
+                    |             o'--o'--o'  topic
+                     \
+                      o---o---o---o---o  next
 
-#### git checkout
+    - 此外，还可以删除连续的一段的提交：
 
-#### git merge
+                E---F---G---H---I---J  topic
+            运行
+                $ git rebase --onto topic~5 topic~3 topic
+            得到
+                E---H'---I'---J'  topic
+
+- `git rebase -i <commit>`：以交互方式来修改历史提交（详见本节修改历史提交）
+- `git rebase --continue|--skip|--abort`：当变基操作遇到冲突暂停时可采用的命令——继续、跳过或终止，若选择继续，则须在运行此命令之前完成冲突解决（添加到暂存区，不提交）
+
+#### 4、取消已修改或已暂存文件 {#discard-changes}
+
+若误修改文件，可使用`git checkout -- <file>`命令放弃修改，其一般格式为：
+
+    $ git checkout [<commit>] [--] <file>...
+
+若省略commit，则会用暂存区域的指定文件覆盖工作目前中的对应文件；若指定commit，则用指定提交中的指定文件覆盖暂存区域和工作目录中的对应文件，两者都不会改变HEAD指针。其中`--`用于分隔指定文件，防止该文件与分支重名造成分支误操作。例如：
+
+    $ git checkout -- README.md             # 放弃README.md文件未暂存的改动
+    $ git checkout .                        # 放弃所有未暂存的改动
+    $ git checkout HEAD *.txt               # 放弃本次所有txt文件作的改动（包括工作目录和暂存区域）
+    $ git checkout HEAD .                   # 放弃所有已暂存改动和未暂存改动，即完全重置到最近的提交状态
+
+若不小心误跟踪文件，可使用`git reset HEAD <file>`或`git rm --cached <file>`命令取消跟踪，前者是将文件重置为最新提交时的状态（即该文件未跟踪状态），后者是从暂存区域移除文件。
+
+#### 5、修改最后一次提交 {#modify-last-commit}
+
+使用`git commit --amend`命令可以修改最后一次提交，如果刚才提交时忘了暂存某些修改，可以先补上暂存操作，再运行此命令：
+
+    $ git commit -m 'initial commit'
+    $ git add forgotten_file
+    $ git commit --amend
+
+上面的三条命令最终只是产生一个提交，第二个提交命令修正了第一个的提交快照。
+
+此外，还可以使用`git reset HEAD^`命令将最后一次提交的所有改动全部放到`Changes not staged for commit`或`Untracked files`中，此时HEAD指针已经指向最近的第二次提交，最后一次提交已从历史中移除。
+
+#### 6、修改历史提交 {#modify-history-commit}
+
+修改历史提交则不能再使用上述方法，可以使用`git revert`命令撤销历史提交，这样能不对历史提交造成修改的同时，也能添加修正的撤销提交，更利于以后查看提交记录，积累修正经验等。
+
+此外，还可以使用`git rebase`命令，其支持对历史提交的修改、删除、重排、压缩和拆分。
+
+**修改**
+
+    $ git rebase -i <commit>
+
+其中commit是你想修改的提交的某个祖先，一般指定为父提交，该命令可以修改commit（不包含）之后的所有提交。例如，若想修改最近第三次提交，运行
+
+    $ git rebase -i HEAD~3
+
+运行上述命令会在文本编辑器显示一个类似如下的提交列表，提交的顺序与`git log`命令看到的是相反的，最早的提交被放置在列顶。
+
+    pick f7f3f6d changed my name a bit
+    pick 310154e updated README formatting and added blame
+    pick a5f4a0d added cat-file
+
+    # Rebase 710f0f8..a5f4a0d onto 710f0f8
+    #
+    # Commands:
+    #  p, pick = use commit
+    #  e, edit = use commit, but stop for amending
+    #  s, squash = use commit, but meld into previous commit
+    #
+    # If you remove a line here THAT COMMIT WILL BE LOST.
+    # However, if you remove everything, the rebase will be aborted.
+    #
+
+将想修改的某些提交前面的`pick`改为`edit`：
+
+    edit f7f3f6d changed my name a bit
+    pick 310154e updated README formatting and added blame
+    pick a5f4a0d added cat-file
+
+保存并退出编辑器，Git会倒回至列表中的最后一次提交，同时显示以下信息
+
+    $ git rebase -i HEAD~3
+    Stopped at 7482e0d... updated the gemspec to hopefully work better
+    You can amend the commit now, with
+
+           git commit --amend
+
+    Once you’re satisfied with your changes, run
+
+           git rebase --continue
+
+修改并暂存后运行
+
+    $ git commit --amend
+
+然后，运行
+
+    $ git rebase --continue
+
+这个命令会自动应用其他两次提交，此时修改历史提交已经完成。
+
+**删除和重排**
+
+若想删除"added cat-file"这个提交并且修改其他两次提交引入的顺序，将
+
+    pick f7f3f6d changed my name a bit
+    pick 310154e updated README formatting and added blame
+    pick a5f4a0d added cat-file
+
+改为：
+
+    pick 310154e updated README formatting and added blame
+    pick f7f3f6d changed my name a bit
+
+保存并退出编辑器，Git将分支倒回至这些提交的父提交，应用`310154e`，然后`f7f3f6d`，接着停止。此时，Git已经修改了这些提交的顺序并且彻底删除了added cat-file这次提交。
+
+**压缩**
+
+将想压缩的某些提交前面的`pick`改为`squash`，Git会将这样的提交和它之前的提交合并为单一提交，并将提交说明归并。将这三个提交合并为单一提交：
+
+    pick f7f3f6d changed my name a bit
+    squash 310154e updated README formatting and added blame
+    squash a5f4a0d added cat-file
+
+保存并退出编辑器，Git会应用全部三次改动然后再启动编辑器来归并三次提交说明：
+
+    # This is a combination of 3 commits.
+    # The first commit's message is:
+    changed my name a bit
+
+    # This is the 2nd commit message:
+
+    updated README formatting and added blame
+
+    # This is the 3rd commit message:
+
+    added cat-file
+
+保存退出之后，前三次提交的全部改动已变成单一提交。
+
+**拆分**
+
+拆分提交就是重置一次提交，将提取的被重置的所有改动多次部分地暂存或提交直到结束。例如，想将最近第二次提交updated README formatting and added blame拆分成两次提交：第一次为updated README formatting，第二次为added blame：
+
+    pick f7f3f6d changed my name a bit
+    edit 310154e updated README formatting and added blame
+    pick a5f4a0d added cat-file
+
+保存并退出编辑器，直到应用第二次提交`310154e`，运行：
+
+    $ git reset HEAD^
+    $ git add forgotten_file_1
+    $ git commit -m 'updated README formatting'
+    $ git add forgotten_file_2
+    $ git commit -m 'added blame'
+    $ git rebase --continue
+
+#### 7、修改大量提交 {#git-fiter-branch}
+
+基本命令为`git fiter-branch`，其会大量地修改历史提交。例如，从所有提交中删除一个名叫password.txt的文件：
+
+    $ git filter-branch --tree-filter 'rm -f passwords.txt' HEAD
+
+`--tree-filter`选项会在每次签出项目时先执行指定的命令然后重新提交结果。
 
 ### Git工具
 
-#### git config
+#### 1、设置命令别名 {#git-alias}
 
-#### git show
+除<a href="#menuIndex4">Git配置</a>中讲述了`git config`的一些基本用法，此外还可以为命令设置别名，例如：
 
-#### git grep
+    $ git config --global alias.co checkout
+    $ git config --global alias.br branch
+    $ git config --global alias.ci commit
+    $ git config --global alias.st status
+    $ git config --global alias.unstage 'reset HEAD --'
+    $ git config --global alias.last 'log -1 HEAD'
 
-#### git bisect
+则`git commit`可以用`git ci`代替，`git reset HEAD file`可以用`git unstage file`代替。而随着Git使用的深入，会有很多经常要用到的命令，遇到这种情况，不妨建个别名提高效率。
 
-#### git help
+#### 2、显示对象信息 {#git-show}
+
+基本命令为`git show`，用于显示指定对象的相关信息，包括对象类型、提交信息、内容改动等，该对象可以为分支、标签、提交等，参数用法和`git log`相同：
+
+    $ git show <object>
+
+#### 3、内容查找 {#git-grep}
+
+基本命令为`git grep`，其作用是在Git仓库中查找指定内容。与`grep`命令相比，`git grep`不用签出历史文件，就能查找它们。
+
+    $ git grep [options] <pattern>
+
+常用参数：
+
+- `git grep <pattern> <commit>`：指定版本查找
+- `git grep <pattern> -- <file>`：指定文件查找
+- `git grep -n <pattern>`：在结果中显示匹配项所在文件行号
+- `git grep --name-only <pattern>`：在结果中只显示匹配的文件名
+
+#### 4、文件标注 {#git-blame}
+
+如果你在追踪代码中的Bug并且想知道这是什么时候为什么被引进来的，可以采用**文件标注**，命令为`git blame`。它会显示文件中对每一行进行修改的最近一次提交，包括谁以及在哪一天修改的。下面这个例子使用了-L选项来限制输出范围在第29至37行：
+
+    $ git blame -L 29,37 linux_text_input_gui.py
+    2968197b (Anh Tu Nguyen 2012-06-16 17:54:38 +0800 29)     def __init__(self):
+    2968197b (Anh Tu Nguyen 2012-06-16 17:54:38 +0800 30)         # create a new window
+    2968197b (Anh Tu Nguyen 2012-06-16 17:54:38 +0800 31)         self.print_text_flag = False
+    2968197b (Anh Tu Nguyen 2012-06-16 17:54:38 +0800 32)         window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+    864c6b5d (Xender        2013-09-07 13:57:55 +0200 33)         window.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
+    2968197b (Anh Tu Nguyen 2012-06-16 17:54:38 +0800 34)         window.set_title("Input Helper")
+    54e9bb05 (Anh Tu Nguyen 2013-07-12 00:06:20 +0700 35)         window.set_default_size(300, 60)
+    68288d37 (hongruiqi     2012-08-15 08:24:01 +0800 36)         window.set_position(gtk.WIN_POS_CENTER_ALWAYS)
+    47b6845b (Shiwen Cheng  2013-11-02 02:29:24 +0800 37)         window.set_icon_from_file(os.path.join("icon.png")
+
+#### 5、二分查找 {#git-bisect}
+
+标注文件在你知道Bug是从哪次提交引入时会有帮助，但如果不知道，并且项目已经历了很多次的提交，这时`git bisect`命令将非常有效。这个会在你的提交历史中进行二分查找来尽快地确定哪一次提交引入了Bug。
+
+首先运行`git bisect start`启动，然后用`git bisect bad`来告诉Git当前的提交已经有Bug了，之后必须告诉Git已知的最后一次正常状态是哪次提交，使用`git bisect good <good_commit>`：
+
+    $ git bisect start
+    $ git bisect bad
+    $ git bisect good v1.0
+    Bisecting: 6 revisions left to test after this
+    [ecb6e1bc347ccecc5f9350d878ce677feb13d3b2] error handling on repo
+
+Git发现在你标记为正常的提交（v1.0）和当前的错误版本之间有大约12次提交，于是它检出中间的一个。在这里，你可以运行测试来检查Bug是否存在于这次提交。如果是，那么它是在这个中间提交之前的某一次引入的；如果否，那么问题是在中间提交之后引入的。假设这里是没有错误的，那么你就通过`git bisect good`来告诉Git并继续二分查找：
+
+    $ git bisect good
+    Bisecting: 3 revisions left to test after this
+    [b047b02ea83310a70fd603dc8cd7a6cd13d15c04] secure this thing
+
+如此二分下去，直至定位到引入Bug的提交为止，Git将告诉你第一个错误提交的哈希值并且显示提交说明以及哪些文件在那次提交中修改过：
+
+    b047b02ea83310a70fd603dc8cd7a6cd13d15c04 is first bad commit
+    commit b047b02ea83310a70fd603dc8cd7a6cd13d15c04
+    Author: PJ Hyett <pjhyett@example.com>
+    Date:   Tue Jan 27 14:48:32 2009 -0800
+
+        secure this thing
+
+    :040000 040000 40ee3e7821b895e52c1695092db9bdc4c61d1730
+    f24d3c6ebcfc639b1a3814550e62d60b8e68a8e4 M  config
+
+当二分查找完成之后，应运行`git bisect reset`将HEAD指针重置为查找前的状态：
+
+    $ git bisect reset
+
+#### 6、获取帮助 {#git-help}
+
+基本命令为`git help`，可以查看命令的相关帮助，有三种方法：
+
+    $ git help <command>        # 查看command命令的详细帮助
+    $ git <command> -h          # 查看command命令的简要帮助
+    $ git <command> --help      # 查看command命令的详细帮助
+
+常用参数：
+
+- `git help -a`：列出git命令基本用法及最常用的命令
+- `git help -a`：列出所有可用命令
 
 
 ## Git文件忽略
