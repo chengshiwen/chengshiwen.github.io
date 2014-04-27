@@ -1167,15 +1167,59 @@ Git发现在你标记为正常的提交（v1.0）和当前的错误版本之间�
 
 ## Git文件忽略
 
+对于一些不需要纳入Git管理的文件，也不希望它们总出现在未跟踪文件列表中，可以忽略这些文件。这些文件通常都是自动生成的文件，比如日志文件，或者编译过程中创建的临时文件等。在项目根目录下创建一个名为`.gitignore`的文件，列出要忽略的文件的匹配模式。例如
 
-## GitHub配置和使用
+    $ cat .gitignore
+    *.[oa]
+    *~
+    tmp/
+
+第一行用于忽略所有以`.o`或`.a`结尾的文件，第二行用于忽略所有以`~`结尾的文件，第三行用于忽略所有名为`tmp`的目录。
+
+文件`.gitignore`的格式规范如下：
+
+- 所有空行或者以注释符号`＃`开头的行都会被Git忽略
+- 可以使用标准的glob模式（即shell所使用的简化正则表达式）匹配
+    - 星号（`*`）匹配零个或多个任意字符
+    - `[abc]`匹配任何一个列在方括号中的字符
+    - 问号（`?`）只匹配一个任意字符
+    - 在方括号中使用短划线（`-`）分隔两个字符，表示所有在这两个字符范围内的都可以匹配（比如`[0-9]`表示匹配所有0到9的数字）
+- 匹配模式以反斜杠（`/`）结尾表示要忽略的是目录
+- 匹配模式以惊叹号（`!`）开头表示要取消的忽略
+
+一些常用的匹配模式：
+
+    # 忽略所有以.a结尾的文件
+    *.a
+
+    # 但lib.a除外
+    !lib.a
+
+    # 忽略所有名为log的文件和目录
+    log
+
+    # 只忽略log文件，不忽略log目录
+    log
+    !log/
+
+    # 只忽略log目录，不忽略log文件
+    log/
+
+    # 仅仅忽略项目根目录下的tmp文件和tmp目录
+    /tmp
+
+    # 忽略doc根目录下的所有以.txt结尾的文件（但不包括doc/server/arch.txt）
+    doc/*.txt
+
+`.gitignore`文件同样需要加入到版本控制中，运行`git add .gitignore`以及`git commit`提交即可。
+
+**注**：`.gitignore`只适用于未跟踪文件。要忽略已跟踪文件，则需用`git rm`移除该文件后再添加至`.gitignore`中。
 
 
-
-[Git]:	http://git-scm.com "Git"
+[Git]:  http://git-scm.com "Git"
 [Github]:   http://github.com "Github"
-[Linus Torvalds]:	http://zh.wikipedia.org/wiki/Linus_Torvalds "Linus Torvalds"
-[1]:	http://zh.wikipedia.org/wiki/SHA1
-[2]:	http://git-scm.com/download/linux
-[3]:	http://code.google.com/p/git-osx-installer
-[4]:	http://msysgit.github.io
+[Linus Torvalds]:   http://zh.wikipedia.org/wiki/Linus_Torvalds "Linus Torvalds"
+[1]:    http://zh.wikipedia.org/wiki/SHA1
+[2]:    http://git-scm.com/download/linux
+[3]:    http://code.google.com/p/git-osx-installer
+[4]:    http://msysgit.github.io

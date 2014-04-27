@@ -2,7 +2,7 @@
 html {color:#000;}
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {margin:0;padding:0;}
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {display:block;}
-body,button,input,select,textarea {font-size:12px/1.5;}
+button,input,select,textarea {font-size:12px;}
 input,select,textarea {font-size:100%;}
 table {border-collapse:collapse;border-spacing:0;}
 th {text-align:inherit;}
@@ -41,13 +41,12 @@ h3 {font-size:18px;font-weight:bold;margin-bottom:25px;}
 h4,h5,h6 {font-weight:bold;margin-bottom:15px;}
 p {margin-bottom:40px;line-height:1.8em;}
 code,pre {font-family:Monaco,Menlo,Consolas,"Courier New",monospace}
-code {padding:2px 4px;font-size:90%;color:#333;background-color:#f5f5f5;border: 1px solid #ccc;border-radius:4px;word-wrap:break-word;}
-pre {overflow:auto;border:1px solid #999;page-break-inside:avoid;display:block;padding:9.5px;margin-bottom: 20px;font-size:13px;line-height:1.428571429;color:#333;background-color:#f5f5f5;border:1px solid #ccc;border-radius:4px}
-pre code {padding:0;font-size:inherit;color:inherit;background-color:transparent;border:0;word-wrap:normal;}
+code {padding:2px 4px;font-size:14px;color:#333;background-color:#f5f5f5;border: 1px solid #ccc;border-radius:4px;word-wrap:break-word;}
+pre {overflow:auto;border:1px solid #999;page-break-inside:avoid;display:block;padding:9.5px;margin-bottom: 20px;font-size:14px;line-height:1.428571429;color:#333;background-color:#f5f5f5;border:1px solid #ccc;border-radius:4px}
+pre code {padding:0;color:inherit;background-color:transparent;border:0;word-wrap:normal;}
 
 /************layout style*****************/
 #content {width:1060px;margin:90px auto 30px;min-height:400px;height:auto !important;height:400px;}
-
 
 /****************entry style**************/
 .sidenav {width:240px;background:#fff;float:right;padding:20px;margin-bottom:50px;box-shadow:0 1px 4px #ccc;}
@@ -74,9 +73,8 @@ pre code {padding:0;font-size:inherit;color:inherit;background-color:transparent
 .index-content h2 a:hover {color:#08c;text-decoration:none;}
 .index-content .title-desc {color:#999;font-size:14px;line-height:1.6em;}
 
-/***************contact style*************/
+/***************comment style*************/
 #ds_container {margin-top:60px;}
-#ds_container a.comment {font-size:14px;text-decoration:none;}
 
 /**************目录导航**************/
 #menuIndex {overflow:auto;}
@@ -88,34 +86,31 @@ pre code {padding:0;font-size:inherit;color:inherit;background-color:transparent
 #menuIndex li.h1 {font-size:14px;font-weight:normal;padding-left:0;margin-bottom:10px;}
 #menuIndex li.h3 {padding-left:25px;}
 
-@media screen and (max-width: 750px) {
-    body {font-size:14px;}
-    #content {width:95%;margin:90px auto 15px;}
-
-    h2 {font-size:20px;}
-    h3 {font-size:16px;}
-    embed {display:none;}
-
-    .entry-title,.entry-title a {font-size:24px;}
-    .entry-date {margin-bottom:40px;}
-    .entry img {max-width:90%;}
-    .sidenav {display:none;}
-    .entry {float:none;width:auto;margin-bottom:15px;}
-
-    .index-content {margin-left:0;padding-right:0;}
-    .index-content ul {width:85%;}
+@media screen and (min-width: 1380px) {
+    #content {width:80%;}
+    .sidenav {width:22%;}
+    .entry {width:65%;}
 }
 
 @media screen and (max-width: 1100px) {
     #content {width:95%;margin:90px auto 15px;}
     #menuIndex {display:none;}
     .sidenav {display:none;}
-    .entry {float:none;width:auto;padding:30px 20px;margin-bottom:15px;}
-    .index-content .artical-list {width:85%;}
+    .entry {float:none;width:auto;margin-bottom:15px;}
 }
 
-@media screen and (min-width: 1380px) {
-    #content {width:80%;}
-    .sidenav {width:22%;}
-    .entry {width:65%;}
+@media screen and (max-width: 750px) {
+    body {font-size:14px;}
+
+    h2 {font-size:20px;}
+    h3 {font-size:16px;}
+
+    .entry {padding:30px 20px;}
+    .entry-title, .entry-title a {font-size:24px;}
+    .entry-date {margin-bottom:40px;}
+    .entry img {max-width:90%;}
+    .entry pre code {font-size:13px;}
+
+    .index-content {margin-left:0;padding-right:0;}
+    .index-content .artical-list {width:95%;}
 }

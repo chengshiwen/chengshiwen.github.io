@@ -168,6 +168,7 @@ $(document).ready(function(){
                                 }
                             }
                         }
+                        console.log(index);
                         if (index > 0) {
                             $('#menuIndex li').removeClass('on');
                             $('#menuIndex li').eq(index-1).addClass('on');
