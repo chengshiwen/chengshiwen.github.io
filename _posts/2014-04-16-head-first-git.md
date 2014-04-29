@@ -12,7 +12,7 @@ category: blog
 
 Git是[Linus Torvalds][]为了帮助管理Linux内核开发而开发的一个开放源码的版本控制系统。
 
-Torvalds开始着手开发Git是为了作为一种过渡方案来替代BitKeeper，后者之前一直是Linux内核开发人员在全球使用的主要源代码工具。开放源码社区中的有些人觉得BitKeeper的许可证并不适合开放源码社区的工作，因此Torvalds决定着手研究许可证更为灵活的版本控制系统。尽管最初Git的开发是为了辅助Linux内核开发的过程，但是现在越来越多的公司、开源项目使用Git，包括[Linux Kernel][]，[Ruby On Rails][]，[jQuery][]，[Node.js][]，[Bootstrap][]，[Django][]等等。
+Torvalds开始着手开发Git是为了作为一种过渡方案来替代BitKeeper，后者之前一直是Linux内核开发人员在全球使用的主要源代码工具。开放源码社区中的有些人觉得BitKeeper的许可证并不适合开放源码社区的工作，因此Torvalds决定着手研究许可证更为灵活的版本控制系统。尽管最初Git的开发是为了辅助Linux内核开发的过程，但是现在越来越多的公司、开源项目使用Git，如[Linux Kernel][]，[Ruby On Rails][]，[jQuery][]，[Node.js][]，[Bootstrap][]，[Django][]等。
 
 Git和其它版本控制系统的主要差别在于，Git只关心文件数据的整体是否发生变化，每个版本存储改动过的所有文件，而大多数其它系统则只关心文件内容的变化差异，每个版本存储变化前后的差异数据。相比其它版本控制系统，Git具有如下优点：
 
@@ -108,16 +108,6 @@ Git仓库用于记录保存项目的元数据和对象数据，包括所有的�
 下载[msysGit][4]安装包
 
     http://msysgit.github.io
-
-#### 4、Git图形化工具
-
-- [GitX (L)](http://gitx.laullon.com)（Mac，开源免费）
-- [SourceTree](http://www.sourcetreeapp.com)（Windows / Mac，免费）
-- [TortoiseGit](https://code.google.com/p/tortoisegit/)（Windows，免费）
-- [GitHub for Mac](https://mac.github.com)，[GitHub for Windows](https://windows.github.com)（Mac / Windows，免费）
-- [GitEye](http://www.collab.net/giteyeapp)（Windows / Linux / Mac，免费）
-- [git-cola](http://git-cola.github.io)（Windows / Linux / Mac，开源免费）
-- [Git Extensions](https://code.google.com/p/gitextensions)（Windows / Linux / Mac，免费）
 
 ### Git配置
 
@@ -810,26 +800,6 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
 - `git pull [<remote>]`：到remote远程仓库拉取所有本地仓库中还没有的最新改动并进行默认合并操作，remote默认为origin，默认合并分支信息显示在`git remote show origin`结果中的`Local branch configured for 'git pull'`下
 - `git pull <remote> <rbranch>:<lbranch>`：将remote远程仓库的rbranch分支拉取到本地，然后将其合并到本地lbranch分支
 
-#### 5、工作流程建议
-
-如果是个人工作，建议如下：
-
-    $ make changes              # 作出改动
-    $ git status or git diff    # 查看文件状态或改动差异（建议）
-    $ git add                   # 暂存文件
-    $ git commit                # 提交改动
-    $ git push                  # 推送提交
-
-如果是多人协作开发，建议如下：
-
-    $ git pull                  # 拉取最新提交并合并（建议）
-    $ make changes              # 作出改动
-    $ git status or git diff    # 查看文件状态或改动差异（建议）
-    $ git add                   # 暂存文件
-    $ git pull                  # 再次拉取最新提交并合并（强烈建议提交前执行，否则可能产生一条不必要的合并提交）
-    $ git commit                # 提交改动
-    $ git push                  # 推送提交
-
 ### 撤销操作
 
 #### 1、重置 {#git-reset}
@@ -1070,26 +1040,13 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
 
 ### Git工具
 
-#### 1、设置命令别名 {#git-alias}
-
-除[Git配置](#menuIndex4)中讲述了`git config`的一些基本用法，此外还可以为命令设置别名，例如：
-
-    $ git config --global alias.co checkout
-    $ git config --global alias.br branch
-    $ git config --global alias.ci commit
-    $ git config --global alias.st status
-    $ git config --global alias.unstage 'reset HEAD --'
-    $ git config --global alias.last 'log -1 HEAD'
-
-则`git commit`可以用`git ci`代替，`git reset HEAD file`可以用`git unstage file`代替。而随着Git使用的深入，会有很多经常要用到的命令，遇到这种情况，不妨建个别名提高效率。
-
-#### 2、显示对象信息 {#git-show}
+#### 1、显示对象信息 {#git-show}
 
 基本命令为`git show`，用于显示指定对象的相关信息，包括对象类型、提交信息、内容改动等，该对象可以为分支、标签、提交等，参数用法和`git log`相同：
 
     $ git show <object>
 
-#### 3、内容查找 {#git-grep}
+#### 2、内容查找 {#git-grep}
 
 基本命令为`git grep`，其作用是在Git仓库中查找指定内容。与`grep`命令相比，`git grep`不用签出历史文件，就能查找它们。
 
@@ -1102,7 +1059,7 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
 - `git grep -n <pattern>`：在结果中显示匹配项所在文件行号
 - `git grep --name-only <pattern>`：在结果中只显示匹配的文件名
 
-#### 4、文件标注 {#git-blame}
+#### 3、文件标注 {#git-blame}
 
 如果你在追踪代码中的Bug并且想知道这是什么时候以及为什么被引进来的，可以采用**文件标注**，命令为`git blame`。它会显示文件中对每一行进行修改的最近一次提交，包括谁以及在哪一天修改的。下面这个例子使用了-L选项来限制输出范围在第29至37行：
 
@@ -1117,7 +1074,7 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
     68288d37 (hongruiqi     2012-08-15 08:24:01 +0800 36)         window.set_position(gtk.WIN_POS_CENTER_ALWAYS)
     47b6845b (Shiwen Cheng  2013-11-02 02:29:24 +0800 37)         window.set_icon_from_file(os.path.join("icon.png")
 
-#### 5、二分查找 {#git-bisect}
+#### 4、二分查找 {#git-bisect}
 
 标注文件在你知道Bug是从哪次提交引入时会有帮助，但如果不知道，并且项目已经历了很多次的提交，这时`git bisect`命令将非常有效。这个会在你的提交历史中进行二分查找来尽快地确定哪一次提交引入了Bug。
 
@@ -1151,7 +1108,7 @@ Git发现在你标记为正常的提交（v1.0）和当前的错误版本之间�
 
     $ git bisect reset
 
-#### 6、获取帮助 {#git-help}
+#### 5、获取帮助 {#git-help}
 
 基本命令为`git help`，可以查看命令的相关帮助，有三种方法：
 
@@ -1216,6 +1173,76 @@ Git发现在你标记为正常的提交（v1.0）和当前的错误版本之间�
 **注**：`.gitignore`只适用于未跟踪文件。要忽略已跟踪文件，则需用`git rm`移除该文件后再添加至`.gitignore`中。
 
 
+## Git使用技巧
+
+#### 1、工作流程建议
+
+如果是个人工作，建议如下：
+
+    $ make changes              # 作出改动
+    $ git status or git diff    # 查看文件状态或改动差异（建议）
+    $ git add                   # 暂存文件
+    $ git commit                # 提交改动
+    $ git push                  # 推送提交
+
+如果是多人协作开发，建议如下：
+
+    $ git pull                  # 拉取最新提交并合并（建议）
+    $ make changes              # 作出改动
+    $ git status or git diff    # 查看文件状态或改动差异（建议）
+    $ git add                   # 暂存文件
+    $ git pull                  # 再次拉取最新提交并合并（强烈建议提交前执行，否则可能产生一条不必要的合并提交）
+    $ git commit                # 提交改动
+    $ git push                  # 推送提交
+
+#### 2、自动补全
+
+在Bash中使用Git命令自动补全，将使得工作变得更简单，更轻松，更高效。Git官方提供了[git-completion.bash](5)的自动补全脚本，将该文件保存下来，运行：
+
+    mv git-completion.bash ~/.git-completion.bash
+
+并把下面一行内容添加到`~/.bashrc`文件中：
+
+    source ~/.git-completion.bash
+
+也可以为系统上所有用户都设置默认使用此脚本。Mac上将此脚本复制到`/opt/local/etc/bash_completion.d/`目录中，Linux上则复制到`/etc/bash_completion.d/`目录中。这两处目录中的脚本，都会在Bash启动时自动加载。
+
+如果在Windows上安装了msysGit，默认使用的Git Bash就已经配好了这个自动补全脚本，可以直接使用。
+
+此外，推荐一个不错的Shell：[Zsh](6)，其拥有强大的自动补全（可以自动补全命令、参数、文件名、进程、用户名、变量、权限符等）、自定义配置等功能。其还有一个不错的扩展：[oh-my-zsh](7)，拥有更加方便的插件扩展、主题配置功能。
+
+#### 3、设置命令别名
+
+除[Git配置](#menuIndex4)中讲述了`git config`的一些基本用法，此外还可以为命令设置别名，例如：
+
+    $ git config --global alias.co checkout
+    $ git config --global alias.br branch
+    $ git config --global alias.ci commit
+    $ git config --global alias.st status
+    $ git config --global alias.unstage 'reset HEAD --'
+    $ git config --global alias.last 'log -1 HEAD'
+
+则`git commit`可以用`git ci`代替，`git reset HEAD file`可以用`git unstage file`代替。而随着Git使用的深入，会有很多经常要用到的命令，遇到这种情况，不妨建个别名提高效率。
+
+#### 4、Git图形化工具
+
+一些不错的Git图形化工具可以使人从枯燥的命令行中解脱，如：
+
+- [GitX (L)](http://gitx.laullon.com)（Mac，开源免费）
+- [SourceTree](http://www.sourcetreeapp.com)（Windows / Mac，免费）
+- [TortoiseGit](https://code.google.com/p/tortoisegit/)（Windows，免费）
+- [GitHub for Mac](https://mac.github.com)，[GitHub for Windows](https://windows.github.com)（Mac / Windows，免费）
+- [GitEye](http://www.collab.net/giteyeapp)（Windows / Linux / Mac，免费）
+- [git-cola](http://git-cola.github.io)（Windows / Linux / Mac，开源免费）
+- [Git Extensions](https://code.google.com/p/gitextensions)（Windows / Linux / Mac，免费）
+
+#### 5、Git参考
+
+- [Pro Git](http://git-scm.com/book/zh)
+- [Git Community Book 中文版](http://gitbook.liuhui998.com)
+- [Git常用命令](http://pic002.cnblogs.com/img/1-2-3/201007/2010072023345292.png)
+
+
 ## Git命令索引
 
 - [`config`](#menuIndex4) [`init`](#git-init) [`clone`](#git-clone)
@@ -1239,3 +1266,6 @@ Git发现在你标记为正常的提交（v1.0）和当前的错误版本之间�
 [2]:    http://git-scm.com/download/linux
 [3]:    http://code.google.com/p/git-osx-installer
 [4]:    http://msysgit.github.io
+[5]:    https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
+[6]:    http://www.zsh.org
+[7]:    http://ohmyz.sh
