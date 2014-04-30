@@ -55,10 +55,12 @@ Git仓库用于记录保存项目的元数据和对象数据，包括所有的�
 
 #### 4、^和~
 
-除了commit哈希值能索引到提交对象，还可以通过`^`和`~`来确定具体的提交对象，而非记忆繁琐的commit哈希值。
+除了commit哈希值能索引到提交对象，还可以通过`^`和`~`来引用具体的提交对象，而非记忆繁琐的commit哈希值。
 
-- `^`表示父提交，`^`等同于`^1`，HEAD的父提交为`HEAD^ = HEAD^1`，HEAD的第n个父提交为`HEAD^^...^`（共n个`^`）
-- `~`表示父提交，`~`等同于`~1`，HEAD的父提交为`HEAD~ = HEAD~1`，HEAD的第n个父提交为`HEAD~~...~ = HEAD~n`（共n个`~`）
+- `^`表示父提交，`^`等同于`^1`，HEAD的父提交为`HEAD^ = HEAD^1`，HEAD的第n个父提交为`HEAD^^...^`
+- `~`表示父提交，`~`等同于`~1`，HEAD的父提交为`HEAD~ = HEAD~1`，HEAD的第n个父提交为`HEAD~~...~ = HEAD~n`，等同于`HEAD^^...^`
+
+**注**：当HEAD指向合并提交（其父提交有多个）时，可用`HEAD^n`表示多个父提交中的第n个，其中`HEAD^1`是合并时所在分支提交，其它则是所合并的分支提交。
 
 #### 5、文件的状态
 
@@ -71,7 +73,7 @@ Git仓库用于记录保存项目的元数据和对象数据，包括所有的�
 **工作目录**（working directory）是项目某个版本的签出（_The working directory is a single checkout of one version of the project_）
 ，也就是本地项目目录，其包含该版本的所有文件（不包括Git目录）。这些文件都是从Git目录中取出的，我们可以在工作目录中修改它们(modify)、删除它们(remove)或添加新文件(add)——这些称之为**改动（Changes）**。
 
-**暂存区域**（staging area）是工作目录和Git目录之间的临时中转区，存储着工作目录中部分改动文件的快照，该快照将在下次提交时被永久地保存到Git目录中。暂存区域也叫索引（index），实际是Git目录下的index文件（`.git/index`），其存放了与当前暂存内容相关的信息，包括暂存的文件名、文件内容的SHA1哈希值和文件访问权限，使用`git ls-files --stage`命令可查看其内容。
+**暂存区域**（staging area）是工作目录和Git目录之间的临时中转区，存储着工作目录中部分改动文件的快照，该快照将在下次提交时被永久地保存到Git目录中。暂存区域也叫索引（index），实际是Git目录下的index文件（`.git/index`），其存放了与当前暂存内容相关的信息，包括暂存的文件名、文件内容的SHA-1哈希值和文件访问权限，使用`git ls-files --stage`命令可查看其内容。
 
 工作目录下的所有文件分为两种状态：已跟踪（Tracked）或未跟踪（Untracked）。**已跟踪**的文件是指已被纳入版本控制管理的文件，在上次快照中有它们的记录，而所有其它文件都属于**未跟踪**文件（如新放入到工作目录下的文件）。
 
@@ -157,6 +159,46 @@ Git能够为输出到你终端的内容着色，以便你可以凭直观进行�
 查看某个变量的配置，只需把这个变量放在`git config [--system/--global/--local]`后面即可，例如：
 
     $ git config --global user.name
+
+#### 5、生成SSH公钥
+
+大多数Git服务器都会选择使用SSH公钥来进行授权，系统中的每个用户都必须提供一个公钥用于授权，之后才能向Git服务器上的远程仓库提交改动数据。
+
+首先确认下是否已经有一个公钥了：SSH公钥默认储存在用户主目录下的`~/.ssh`目录中
+
+    $ cd ~/.ssh
+    $ ls
+    id_rsa  id_rsa.pub  known_hosts
+
+其中`id_rsa`和`id_rsa.pub`是一对私钥、公钥文件。如果没有这对文件，可以使用`ssh-keygen`来创建
+
+    $ ssh-keygen
+    Generating public/private rsa key pair.
+    Enter file in which to save the key (/home/cheng-shiwen/.ssh/id_rsa):
+    Enter passphrase (empty for no passphrase):
+    Enter same passphrase again:
+    Your identification has been saved in /home/cheng-shiwen/.ssh/id_rsa.
+    Your public key has been saved in /home/cheng-shiwen/.ssh/id_rsa.pub.
+    The key fingerprint is:
+    a8:34:f4:76:9e:7c:00:66:9f:fe:8b:8c:e6:9b:fb:29 cheng-shiwen@chengshiwen-VirtualBox
+    The key's randomart image is:
+    +--[ RSA 2048]----+
+    |                 |
+    |                 |
+    |    . +          |
+    |   . + + .       |
+    |    o + S        |
+    |   . + = o       |
+    |    .   = .      |
+    |      E+ =       |
+    |     o*== o.     |
+    +-----------------+
+
+它先要求你确认保存公钥的位置（`.ssh/id_rsa`，默认回车即可）；然后它会让你重复一个密码两次，如果不想在使用公钥的时候输入密码，直接回车即可。
+
+最后，提供你的公钥给相应Git服务器的管理员，即将`id_rsa.pub`文件的内容提供给管理员。
+
+在GitHub上添加SSH公钥可参考：[https://help.github.com/articles/generating-ssh-keys](https://help.github.com/articles/generating-ssh-keys)。
 
 
 ## Git基本命令
@@ -467,7 +509,7 @@ Git使用的标签有两种类型：轻量级的（lightweight）和含附注的
 
     $ git tag <tagname> -m <msg>
 
-上述命令将对当前提交创建标签，若要对历史的某个提交加注标签，使用`<commit>`指定该提交的commit哈希值：
+上述命令将对当前提交创建标签，若要对历史的某个提交加注标签，使用`<commit>`指定该提交的SHA-1哈希值：
 
     $ git tag -a <tagname> <commit> [-m <msg>] 或
     $ git tag <tagname> <commit> -m <msg>
@@ -491,7 +533,7 @@ Git使用的标签有两种类型：轻量级的（lightweight）和含附注的
 
 **轻量级标签**
 
-一个`-a`或`-m`选项都不用，直接给出标签名字即可，若不指定commit哈希值则默认最新提交：
+一个`-a`或`-m`选项都不用，直接给出标签名字即可，若不指定commit则默认最新提交：
 
     $ git tag <tagname> [<commit>]
 
@@ -557,7 +599,7 @@ Git使用的标签有两种类型：轻量级的（lightweight）和含附注的
 - `git branch -r`：列出远程所有分支
 - `git branch (-d|-D) <branch>`：删除或强制删除branch分支
 - `git branch (-m|-M) [<oldbranch>] <newbranch>`：将oldbranch分支名重命名为newbranch，不指定oldbranch则默认为当前分支
-- `git branch [-f] <branch> [<start-point>]`：基于当前分支新建（或强制新建）一个branch分支，该branch分支头指向start-point（可以为已有的分支、提交哈希值或标签），若不指定start-point则默认为当前分支。该命令执行后仍处于当前分支
+- `git branch [-f] <branch> [<start-point>]`：基于当前分支新建（或强制新建）一个branch分支，该branch分支头指向start-point（可以为已有的分支、提交或标签，若不指定则默认为当前分支），命令执行后仍处于当前分支
 - `git branch (--merged|--no-merged)`：从本地分支中筛选出已经（或尚未）与当前分支合并的分支
 
 #### 2、分支签出 {#git-checkout}
@@ -575,7 +617,7 @@ Git使用的标签有两种类型：轻量级的（lightweight）和含附注的
 常用参数：
 
 - `git checkout <branch>`：切换到指定分支
-- `git checkout (-b|-B) <branch>`：新建分支或重置已存在分支并切换到该分支
+- `git checkout (-b|-B) <branch> [<start point>]`：基于当前分支新建一个branch分支（或重置已存在分支），该branch分支头指向start-point（可以为已有的分支、提交或标签，若不指定则默认为当前分支），并切换到branch分支
 - `git checkout -f <branch>`：强制切换分支，并丢弃当前改动
 - `git checkout [--detach] [<commit>|<tagname>]`：切换到指定的提交或标签，但此时处于**detached HEAD**状态（游离状态，亦即匿名分支状态）
 
@@ -830,9 +872,9 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
 - `git revert`：撤销过去的某次提交后，不会对过去的提交历史进行修改，只将这个撤销操作保存为一个新的commit，故HEAD指针向前移动。
 - `git reset`：重置为过去的某次提交后，当该提交不是HEAD时会对过去的提交历史进行修改（会把该提交之后的所有提交历史删除），而当该提交是HEAD时会对暂存区域或工作目录进行重置，并且都不会自动生成新的commit，HEAD指针不移动或向后移动。
 
-#### 3、变基 {#git-rebase}
+#### 3、衍合 {#git-rebase}
 
-基本命令为`git rebase`，其作用是对历史提交执行变基操作，即可以实现将指定范围的提交“嫁接”到另外一个提交之上。常用命令：
+基本命令为`git rebase`，其作用是对历史提交执行衍合操作，重新设定提交历史，可以实现将指定范围的提交“嫁接”到另外一个提交之上。常用命令：
 
 - `git rebase <upstream> [<branch>]`
     - 将branch分支作的且不在upstream分支中的提交嫁接到upstream分支上。若不指定branch，则默认当前分支
@@ -886,7 +928,7 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
                 E---H'---I'---J'  topic
 
 - `git rebase -i <commit>`：以交互方式修改历史提交（详见[修改历史提交](#modify-history-commit)）
-- `git rebase --continue|--skip|--abort`：当变基操作遇到冲突暂停时可采用的命令——继续、跳过或终止，若选择继续，则须在运行此命令之前完成冲突解决（添加到暂存区，不提交）
+- `git rebase --continue|--skip|--abort`：当衍合操作遇到冲突暂停时可采用的命令——继续、跳过或终止，若选择继续，则须在运行此命令之前完成冲突解决（添加到暂存区，不提交）
 
 #### 4、取消已修改或已暂存文件 {#discard-changes}
 
@@ -1040,13 +1082,77 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
 
 ### Git工具
 
-#### 1、显示对象信息 {#git-show}
+#### 1、恢复丢失的commit
+
+在使用Git的过程中，有时会不小心丢失commit，这一般出现在以下情况下：强制删除了一个分支而后又想重新使用这个分支，或者hard-reset了一个分支从而丢弃了分支的部分commit。
+
+下面将master分支hard-reset到一个老版本的commit，然后恢复丢失的commit。先查看历史提交状态：
+
+    $ git log --oneline
+    e073a20 Add fadein and fadeout effects in homepage's MenuBar
+    3b0528b Change the logic of loading index page
+    64e7804 Fix bug: backtotop index is selected when menu index equal 0; Modify menubar style
+    a8c6eaa Add duoshuo comment into post.html
+    f42940e Add a part content of the article 2014-04-16-head-first-git.md
+
+接着将master分支重置到`a8c6eaa`这个commit：
+
+    $ git reset --hard a8c6eaa
+    HEAD is now at a8c6eaa Add duoshuo comment into post.html
+    $ git log --oneline
+    a8c6eaa Add duoshuo comment into post.html
+    f42940e Add a part content of the article 2014-04-16-head-first-git.md
+    75d415f Add post.html and post.js
+    ca388b6 Fix bug: weibo widget is overflow in mobile broswer
+
+这样就丢弃了最新的三个commit。现在要找出已丢弃的最新commit的SHA-1哈希值，然后添加一个指向它的分支。
+
+**方法一**：使用`git reflog`工具
+
+当你 (在一个仓库下) 工作时，Git会在你每次修改了HEAD时悄悄地将改动记录下来；当你提交或修改分支时，reflog就会更新。这些改动数据都保存在`.git/logs/`目录下，运行`git reflog`命令可以查看当前的状态：
+
+    $ git reflog
+    a8c6eaa HEAD@{0}: reset: moving to a8c6eaa
+    e073a20 HEAD@{1}: commit: Add fadein and fadeout effects in homepage's MenuBar
+    3b0528b HEAD@{2}: commit: Change the logic of loading index page
+
+上述记录是reflog的简要日志（运行`git log -g`会输出reflog的正常日志，可显示更多有用信息），其中`e073a20 HEAD@{1}`就是丢弃了的最新的commit，在这个commit上创建一个名为recover-branch的分支将这个commit恢复过来：
+
+    $ git branch recover-branch e073a20
+    $ git log --oneline recover-branch
+    e073a20 Add fadein and fadeout effects in homepage's MenuBar
+    3b0528b Change the logic of loading index page
+    64e7804 Fix bug: backtotop index is selected when menu index equal 0; Modify menubar style
+    a8c6eaa Add duoshuo comment into post.html
+    f42940e Add a part content of the article 2014-04-16-head-first-git.md
+
+这样即找回了丢弃了的三个commit。
+
+**方法二**：使用`git fsck`工具
+
+如果引起commit丢失的原因并没有记录在reflog中——可以通过删除recover-branch和reflog来模拟这种情况：
+
+    $ git branch -D recover-branch
+    $ rm -rf .git/logs/
+
+此时，丢弃了的三个commit不会被任何东西引用到，但可以使用`git fsck`工具检查仓库的数据完整性。如果指定`--full`选项，该命令显示所有未被其他对象引用 (指向) 的所有对象：
+
+    $ git fsck --full
+    Checking object directories: 100% (256/256), done.
+    dangling commit e073a207495d092b48f9fbbea543f82474655327
+    dangling commit 3b0528b3f8701c35823898527e3e4d355b3838f5
+    dangling blob 8919ea34dd53e33a0abf8ed6aab1c404b2c34e45
+    dangling tree aea790b9a58f6cf6f2804eeac9f0abbe9631e4c9
+
+可以从dangling commit找到丢失了的commit，用相同的方法就可以恢复它。
+
+#### 2、显示对象信息 {#git-show}
 
 基本命令为`git show`，用于显示指定对象的相关信息，包括对象类型、提交信息、内容改动等，该对象可以为分支、标签、提交等，参数用法和`git log`相同：
 
     $ git show <object>
 
-#### 2、内容查找 {#git-grep}
+#### 3、内容查找 {#git-grep}
 
 基本命令为`git grep`，其作用是在Git仓库中查找指定内容。与`grep`命令相比，`git grep`不用签出历史文件，就能查找它们。
 
@@ -1059,7 +1165,7 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
 - `git grep -n <pattern>`：在结果中显示匹配项所在文件行号
 - `git grep --name-only <pattern>`：在结果中只显示匹配的文件名
 
-#### 3、文件标注 {#git-blame}
+#### 4、文件标注 {#git-blame}
 
 如果你在追踪代码中的Bug并且想知道这是什么时候以及为什么被引进来的，可以采用**文件标注**，命令为`git blame`。它会显示文件中对每一行进行修改的最近一次提交，包括谁以及在哪一天修改的。下面这个例子使用了-L选项来限制输出范围在第29至37行：
 
@@ -1074,7 +1180,7 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
     68288d37 (hongruiqi     2012-08-15 08:24:01 +0800 36)         window.set_position(gtk.WIN_POS_CENTER_ALWAYS)
     47b6845b (Shiwen Cheng  2013-11-02 02:29:24 +0800 37)         window.set_icon_from_file(os.path.join("icon.png")
 
-#### 4、二分查找 {#git-bisect}
+#### 5、二分查找 {#git-bisect}
 
 标注文件在你知道Bug是从哪次提交引入时会有帮助，但如果不知道，并且项目已经历了很多次的提交，这时`git bisect`命令将非常有效。这个会在你的提交历史中进行二分查找来尽快地确定哪一次提交引入了Bug。
 
@@ -1108,7 +1214,7 @@ Git发现在你标记为正常的提交（v1.0）和当前的错误版本之间�
 
     $ git bisect reset
 
-#### 5、获取帮助 {#git-help}
+#### 6、获取帮助 {#git-help}
 
 基本命令为`git help`，可以查看命令的相关帮助，有三种方法：
 
@@ -1197,7 +1303,7 @@ Git发现在你标记为正常的提交（v1.0）和当前的错误版本之间�
 
 #### 2、自动补全
 
-在Bash中使用Git命令自动补全，将使得工作变得更简单，更轻松，更高效。Git官方提供了[git-completion.bash](5)的自动补全脚本，将该文件保存下来，运行：
+在Bash中使用Git命令自动补全，将使得工作变得更简单，更轻松，更高效。Git官方提供了[git-completion.bash][5]的自动补全脚本，将该文件保存下来，运行：
 
     mv git-completion.bash ~/.git-completion.bash
 
@@ -1209,7 +1315,7 @@ Git发现在你标记为正常的提交（v1.0）和当前的错误版本之间�
 
 如果在Windows上安装了msysGit，默认使用的Git Bash就已经配好了这个自动补全脚本，可以直接使用。
 
-此外，推荐一个不错的Shell：[Zsh](6)，其拥有强大的自动补全（可以自动补全命令、参数、文件名、进程、用户名、变量、权限符等）、自定义配置等功能。其还有一个不错的扩展：[oh-my-zsh](7)，拥有更加方便的插件扩展、主题配置功能。
+此外，推荐一个不错的Shell：[Zsh][6]，其拥有强大的自动补全（可以自动补全命令、参数、文件名、进程、用户名、变量、权限符等）、自定义配置等功能。其还有一个不错的扩展：[oh-my-zsh][7]，拥有更加方便的插件扩展、主题配置功能。
 
 #### 3、设置命令别名
 
@@ -1236,12 +1342,6 @@ Git发现在你标记为正常的提交（v1.0）和当前的错误版本之间�
 - [git-cola](http://git-cola.github.io)（Windows / Linux / Mac，开源免费）
 - [Git Extensions](https://code.google.com/p/gitextensions)（Windows / Linux / Mac，免费）
 
-#### 5、Git参考
-
-- [Pro Git](http://git-scm.com/book/zh)
-- [Git Community Book 中文版](http://gitbook.liuhui998.com)
-- [Git常用命令](http://pic002.cnblogs.com/img/1-2-3/201007/2010072023345292.png)
-
 
 ## Git命令索引
 
@@ -1252,6 +1352,8 @@ Git发现在你标记为正常的提交（v1.0）和当前的错误版本之间�
 - [`remote`](#git-remote) [`push`](#git-push) [`fetch`](#git-fetch) [`pull`](#git-pull)
 - [`reset`](#git-reset) [`revert`](#git-revert) [`rebase`](#git-rebase)
 - [`show`](#git-show) [`grep`](#git-grep) [`blame`](#git-blame) [`bisect`](#git-bisect) [`help`](#git-help)
+
+附：[Git常用命令简记图](http://pic002.cnblogs.com/img/1-2-3/201007/2010072023345292.png)
 
 
 [Git]:              http://git-scm.com "Git"
