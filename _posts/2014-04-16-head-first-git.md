@@ -180,7 +180,7 @@ Git能够为输出到你终端的内容着色，以便你可以凭直观进行�
     Your identification has been saved in /home/cheng-shiwen/.ssh/id_rsa.
     Your public key has been saved in /home/cheng-shiwen/.ssh/id_rsa.pub.
     The key fingerprint is:
-    a8:34:f4:76:9e:7c:00:66:9f:fe:8b:8c:e6:9b:fb:29 cheng-shiwen@chengshiwen-VirtualBox
+    a8:34:f4:76:9e:7c:00:66:9f:fe:8b:8c:e6:9b:fb:29 cheng-shiwen@root
     The key's randomart image is:
     +--[ RSA 2048]----+
     |                 |
@@ -719,6 +719,30 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
 - `git merge --no-commit <commit>`：合并成功后不会自动产生新的提交，用户可以在下次提交前对这次的合并结果进行修改和调整
 - `git merge --abort`：遇到合并冲突时，此命令将终止合并，并恢复未合并之前的状态
 
+#### 4、分支挑捡 {#git-cherry-pick}
+
+如果不需要合并某个分支的全部提交,而只需要该分支的某个或某些提交,可以使用`git cherry-pick`，它会将指定的commit重新应用到当前分支，命令格式为：
+
+    $ git cherry-pick <commit>...
+
+例如当前处于master分支
+
+              A---B---C topic
+             /
+        D---E---F---G master
+
+运行
+
+    $ git cherry-pick B
+
+得到
+
+              A---B---C topic
+             /
+        D---E---F---G---B' master
+
+其中B和B'作了相同的改动，但是不同的提交。
+
 ### 远程交互
 
 要参与任何一个Git项目的协作，必须要了解该如何管理远程仓库。远程仓库是指托管在服务器上的项目仓库，同他人协作开发某个项目时，需要管理这些远程仓库，以便推送或拉取数据，共享各自的工作进展。管理远程仓库的工作，包括添加远程仓库，移除废弃的远程仓库，管理各式远程仓库分支等。
@@ -891,7 +915,7 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
                              /
                 D---E---F---G master
 
-    - 如果upstream分支已经包含branch分支所作的改动，则branch分支中的这次改动会被跳过（其中A和A'作了相同的修改，但是不同的提交）：
+    - 如果upstream分支已经包含branch分支所作的改动，则branch分支中的这次改动会被跳过（其中A和A'作了相同的改动，但是不同的提交）：
 
                       A---B---C topic
                      /
@@ -1091,7 +1115,7 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
     $ git log --oneline
     e073a20 Add fadein and fadeout effects in homepage's MenuBar
     3b0528b Change the logic of loading index page
-    64e7804 Fix bug: backtotop index is selected when menu index equal 0; Modify menubar style
+    64e7804 Fix bug: backtotop index is selected when menu index equal 0
     a8c6eaa Add duoshuo comment into post.html
     f42940e Add a part content of the article 2014-04-16-head-first-git.md
 
@@ -1122,7 +1146,7 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
     $ git log --oneline recover-branch
     e073a20 Add fadein and fadeout effects in homepage's MenuBar
     3b0528b Change the logic of loading index page
-    64e7804 Fix bug: backtotop index is selected when menu index equal 0; Modify menubar style
+    64e7804 Fix bug: backtotop index is selected when menu index equal 0
     a8c6eaa Add duoshuo comment into post.html
     f42940e Add a part content of the article 2014-04-16-head-first-git.md
 
@@ -1214,7 +1238,102 @@ Git发现在你标记为正常的提交（v1.0）和当前的错误版本之间�
 
     $ git bisect reset
 
-#### 6、获取帮助 {#git-help}
+#### 6、移除大文件
+
+由于`git clone`会将包含每一个文件的所有历史版本的整个项目下载下来，如果有人在某个时刻往项目中添加了一个非常大的文件，那们即便他在后来的提交中将此文件删掉了，所有的签出都会将这个大文件恢复出来。因为历史记录中引用了这个文件，它会一直存在着。
+
+为了不让整个项目的体积变得越来越臃肿，可以将这些不再使用的大文件从项目仓库中移除（警告：此方法会破坏提交历史。为了移除对一个大文件的引用，从最早包含该引用的快照开始之后的所有commit对象都会被重写）。为了演示这点，往测试仓库中加入一个大文件，然后在下次提交时将它删除，接着找到并将这个文件从仓库中永久删除。首先，加一个大文件进去：
+
+    # git.tbz2是一个大小为2MB的文件
+    $ git add git.tbz2
+    $ git commit -am 'added git tarball'
+    [master 6df7640] added git tarball
+     1 files changed, 0 insertions(+), 0 deletions(-)
+     create mode 100644 git.tbz2
+
+现在，你并不想往项目中加进一个这么大的文件，要将其去掉：
+
+    $ git rm git.tbz2
+    rm 'git.tbz2'
+    $ git commit -m 'oops - removed large tarball'
+    [master da3f30d] oops - removed large tarball
+     1 files changed, 0 insertions(+), 0 deletions(-)
+     delete mode 100644 git.tbz2
+
+对仓库进行`gc`（garbage collect，指垃圾回收，此命令会做很多工作：收集所有松散对象并将它们存入packfile，合并这些packfile到一个大的 packfile，然后将不被任何commit引用并且已存在一段时间的对象删除）操作，并查看占用了空间：
+
+    $ git gc
+    Counting objects: 21, done.
+    Delta compression using 2 threads.
+    Compressing objects: 100% (16/16), done.
+    Writing objects: 100% (21/21), done.
+    Total 21 (delta 3), reused 15 (delta 1)
+
+可以运行`count-objects`快速查看使用了多少空间：
+
+    $ git count-objects -v
+    count: 4
+    size: 16
+    in-pack: 21
+    packs: 1
+    size-pack: 2016
+    prune-packable: 0
+    garbage: 0
+
+`size-pack`表示packfile的大小，其单位为KB，因此已经使用了2MB。而在这次提交之前仅用了2KB左右——显然在这次提交时删除文件并没有真正将其从历史记录中删除。每当有人克隆这个仓库去取得这个小项目时，都不得不克隆所有2MB数据。
+
+**首先要找出这个大文件**。在本例中，你知道是哪个文件。但如果你并不知道是哪个，可以通过如下方法找到占用空间最多的文件：运行`git gc`，所有对象会存入一个packfile文件；运行另一个底层命令`git verify-pack`以识别出大文件，对输出的第三列信息即文件大小进行排序；还可以将输出定向到`tail`命令，从而列出排在最后的那几个最大的文件（最底下的就是那个2MB的大文件）：
+
+    $ git verify-pack -v .git/objects/pack/pack-3f8c0...bb.idx | sort -k 3 -n | tail -3
+    e3f094f522629ae358806b17daf78246c27c007b blob   1486 734 4667
+    05408d195263d853f09dca71d55116663690c27c blob   12908 3478 1189
+    7a9eb2fba2b1811321254ac360970fc169ba2330 blob   2056716 2056872 5401
+
+**其次要查看大文件的文件路径**，可以使用`rev-list`命令。若给`rev-list`命令加上`--objects`选项，它会列出所有commit SHA值，blob SHA值及相应的文件路径。运行如下命令查看该大文件的文件路径：
+
+    $ git rev-list --objects --all | grep 7a9eb2fba2b1811321254ac360970fc169ba2330
+    7a9eb2fba2b1811321254ac360970fc169ba2330 git.tbz2
+
+**接下来找出曾引用了这个文件的所有commit**：
+
+    $ git log --pretty=oneline --branches -- git.tbz2
+    da3f30d019005479c99eb4c3406225613985a1db oops - removed large tarball
+    6df764092f3e7c8f5f94cbe08ee5cf42e92a0289 added git tarball
+
+**然后将该文件从历史提交的所有快照中移除**，因此必须重写从`6df7640`开始的所有commit才能将文件从Git历史中完全移除，这需要用到`filter-branch`命令：
+
+    $ git filter-branch --index-filter 'git rm --cached --ignore-unmatch git.tbz2' -- 6df7640^..
+    Rewrite 6df764092f3e7c8f5f94cbe08ee5cf42e92a0289 (1/2)rm 'git.tbz2'
+    Rewrite da3f30d019005479c99eb4c3406225613985a1db (2/2)
+    Ref 'refs/heads/master' was rewritten
+
+`--index-filter`选项用于修改暂存区域文件，而不是去修改磁盘上签出的文件，因此用`git rm --cached`来删除它。最后，使用`filter-branch`重写自`6df7640`这个commit开始的所有历史提交。
+
+**最后删除文件引用并repack**。现在历史记录中已经不包含对那个文件的引用了，但reflog以及运行`filter-branch`时Git往`.git/refs/original`添加的一些refs中仍有对它的引用，因此需要将这些引用删除并对仓库进行repack操作：
+
+    $ rm -rf .git/refs/original
+    $ rm -rf .git/logs/
+    $ git gc
+    Counting objects: 19, done.
+    Delta compression using 2 threads.
+    Compressing objects: 100% (14/14), done.
+    Writing objects: 100% (19/19), done.
+    Total 19 (delta 3), reused 16 (delta 1)
+
+此时仓库占用空间：
+
+    $ git count-objects -v
+    count: 8
+    size: 2040
+    in-pack: 19
+    packs: 1
+    size-pack: 7
+    prune-packable: 0
+    garbage: 0
+
+repack后仓库的大小减小到了7KB，远小于之前的2MB。从size值可以看出大文件对象还在松散对象中，其实并没有消失，不过这没有任何关系，在之后的推送或克隆中，这个对象不会再传送出去。如果真的要完全把这个对象删除，可以运行`git prune --expire`命令。
+
+#### 7、获取帮助 {#git-help}
 
 基本命令为`git help`，可以查看命令的相关帮助，有三种方法：
 
@@ -1348,7 +1467,7 @@ Git发现在你标记为正常的提交（v1.0）和当前的错误版本之间�
 - [`config`](#menuIndex4) [`init`](#git-init) [`clone`](#git-clone)
 - [`status`](#git-status) [`add`](#git-add) [`diff`](#git-diff) [`commit`](#git-commit)
 - [`log`](#git-log) [`stash`](#git-stash) [`rm`](#git-rm) [`mv`](#git-mv) [`clean`](#git-clean) [`tag`](#git-tag)
-- [`branch`](#git-branch) [`checkout`](#git-checkout) [`merge`](#git-merge)
+- [`branch`](#git-branch) [`checkout`](#git-checkout) [`merge`](#git-merge) [`cherry-pick`](#git-cherry-pick)
 - [`remote`](#git-remote) [`push`](#git-push) [`fetch`](#git-fetch) [`pull`](#git-pull)
 - [`reset`](#git-reset) [`revert`](#git-revert) [`rebase`](#git-rebase)
 - [`show`](#git-show) [`grep`](#git-grep) [`blame`](#git-blame) [`bisect`](#git-bisect) [`help`](#git-help)
