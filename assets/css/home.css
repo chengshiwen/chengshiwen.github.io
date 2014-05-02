@@ -13,11 +13,22 @@
 @media screen and (max-width: 750px) {
     #chart {
         width: 95%;
-        margin-top: 100px;
     }
     #chart img {
         display: block;
         margin: 0 auto 20px auto;
+    }
+}
+
+@media screen and (max-width: 750px) and (min-height: 543px) {
+    #chart {
+        margin-top: 100px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #chart img {
+        width: 100%;
     }
 }
 

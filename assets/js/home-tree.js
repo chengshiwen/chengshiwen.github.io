@@ -117,8 +117,8 @@ var is_mobile = !!navigator.userAgent.match(/AppleWebKit.*Mobile/) ||
 if (is_mobile) {
     $('#chart').children(':first').remove();
     $('#chart').prepend('<img src="/assets/images/home-tree.png" />');
-    if ($(window).width() < 400) {
-        $('#chart img').css('width', '100%');
+    if ($(window).height() > 343 && $(window).height() < 543) {
+        $('#chart').css('margin-top', ($(window).height() - 343) / 2);
     }
 } else {
     regenerate(true);
