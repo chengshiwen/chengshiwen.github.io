@@ -116,7 +116,10 @@ var is_mobile = !!navigator.userAgent.match(/AppleWebKit.*Mobile/) ||
                 !!navigator.userAgent.match(/MQQBrowser/);
 if (is_mobile) {
     $('#chart').children(':first').remove();
-    $('#chart').prepend('<img src="/assets/images/binarytree.png" />');
+    $('#chart').prepend('<img src="/assets/images/home-tree.png" />');
+    if ($(window).width() < 400) {
+        $('#chart img').css('width', '100%');
+    }
 } else {
     regenerate(true);
     setInterval("regenerate();", 10000);
