@@ -60,6 +60,8 @@ Git仓库用于记录保存项目的元数据和对象数据，包括所有的�
 - `^`表示父提交，`^`等同于`^1`，HEAD的父提交为`HEAD^ = HEAD^1`，HEAD的第n个父提交为`HEAD^^...^`
 - `~`表示父提交，`~`等同于`~1`，HEAD的父提交为`HEAD~ = HEAD~1`，HEAD的第n个父提交为`HEAD~~...~ = HEAD~n`，等同于`HEAD^^...^`
 
+上图中，HEAD的第3个父提交为`HEAD^^^`，即`b325c53`；`ed48905`的第4个父提交为`ed48905~4`，即`a473c87`。
+
 **注**：当HEAD指向合并提交（其父提交有多个）时，可用`HEAD^n`表示多个父提交中的第n个，其中`HEAD^1`是合并时所在分支提交，其它则是所合并的分支提交。
 
 #### 5、文件的状态
@@ -721,7 +723,7 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
 
 #### 4、分支挑捡 {#git-cherry-pick}
 
-如果不需要合并某个分支的全部提交,而只需要该分支的某个或某些提交,可以使用`git cherry-pick`，它会将指定的commit重新应用到当前分支，命令格式为：
+如果不需要合并某个分支的全部提交,而只需要该分支的某个或某些提交,使用`git cherry-pick`命令，它会将指定的commit重新应用到当前分支，命令格式为：
 
     $ git cherry-pick <commit>...
 
@@ -962,10 +964,10 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
 
 若省略commit，则会用暂存区域的指定文件覆盖工作目前中的对应文件；若指定commit，则用指定提交中的指定文件覆盖暂存区域和工作目录中的对应文件，两者都不会改变HEAD指针。其中`--`用于分隔指定文件，防止该文件与分支重名造成分支误操作。例如：
 
-    $ git checkout -- README.md             # 放弃README.md文件未暂存的改动
-    $ git checkout .                        # 放弃所有未暂存的改动
-    $ git checkout HEAD *.txt               # 放弃本次所有txt文件作的改动（包括工作目录和暂存区域）
-    $ git checkout HEAD .                   # 放弃所有已暂存改动和未暂存改动，即完全重置到最近的提交状态
+    $ git checkout -- grep.py   # 放弃grep.py文件未暂存的改动
+    $ git checkout .            # 放弃所有未暂存的改动
+    $ git checkout HEAD *.txt   # 放弃本次所有txt文件作的改动（包括工作目录和暂存区域）
+    $ git checkout HEAD .       # 放弃所有已暂存改动和未暂存改动，即完全重置到最近的提交状态
 
 若不小心误跟踪文件，可使用`git reset HEAD <file>`或`git rm --cached <file>`命令取消跟踪，前者是将文件重置为最近提交时的状态（即未跟踪状态），后者是从暂存区域移除文件。
 
@@ -1416,7 +1418,7 @@ repack后仓库的大小减小到了7KB，远小于之前的2MB。从size值可�
     $ make changes              # 作出改动
     $ git status or git diff    # 查看文件状态或改动差异（建议）
     $ git add                   # 暂存文件
-    $ git pull                  # 再次拉取最新提交并合并（强烈建议提交前执行，否则可能产生一条不必要的合并提交）
+    $ git pull                  # 强烈建议提交前执行，否则可能产生一条不必要的合并提交
     $ git commit                # 提交改动
     $ git push                  # 推送提交
 
@@ -1460,6 +1462,46 @@ repack后仓库的大小减小到了7KB，远小于之前的2MB。从size值可�
 - [GitEye](http://www.collab.net/giteyeapp)（Windows / Linux / Mac，免费）
 - [git-cola](http://git-cola.github.io)（Windows / Linux / Mac，开源免费）
 - [Git Extensions](https://code.google.com/p/gitextensions)（Windows / Linux / Mac，免费）
+
+#### 5、Git托管服务
+
+目前比较流行的Git托管服务有：
+
+- [GitHub](https://github.com/)（无限空间）
+- [Bitbucket](https://bitbucket.org/)（无限空间）
+- [Gitorious](https://gitorious.org/)（无限空间）
+- [CloudHost](http://cloudhost.io/)（1000个项目）
+- [Deveo](https://www.deveo.com/)（无限空间）
+- [GitEnterprise](http://www.gitenterprise.com/)（1GB空间）
+- [GitCafe](https://gitcafe.com/)（0.25GB空间）
+- [Git OSChina](https://git.oschina.net/)（1000个项目）
+
+对于一些想要公开的项目，可以将这些项目放到上述公共的Git服务器上，由它们进行托管。当然，如果不希望项目公开，可以设置为私有（部分Git托管服务会收取一定的费用）。
+
+此外，可以在自己的服务器上搭建Git服务，具体方法详见[这里](http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%83%A8%E7%BD%B2-Git)。本文提供三种搭建Git服务的工具：
+
+- [GitLab](https://www.gitlab.com/)（可以采用[Bitnami Gitlab](https://bitnami.com/stack/gitlab)一键安装GitLab)
+- [Gitosis](http://git-scm.com/book/en/Git-on-the-Server-Gitosis)
+- [Gitolite](http://git-scm.com/book/en/Git-on-the-Server-Gitolite)
+
+如果不需要和其他人进行协作开发，也不想公开项目，甚至不想要搭建Git服务，那么可以直接使用本地路径完成Git仓库间的操作。
+
+假设本地项目名为`example`，其路径为`~/Project/example`。我们可以在本地建立一个目录来模拟远程服务器，假设为`~/GitRemote/`，其用于存储远程仓库，即相当于Git服务器，操作如下：
+
+    $ cd ~/Project/example
+    $ git init
+    $ git clone --bare ../example ~/GitRemote/example.git
+
+然后编辑`.git/config`文件，追加以下内容（注意修改相应的`url`）：
+
+    [remote "origin"]
+            fetch = +refs/heads/*:refs/remotes/origin/*
+            url = ~/GitRemote/example.git
+    [branch "master"]
+            remote = origin
+            merge = refs/heads/master
+
+此时，我们便能在`example`项目下进行正常的Git操作，而在`~/GitRemote/example.git`下可以查看相应的远程仓库。
 
 
 ## Git命令索引
