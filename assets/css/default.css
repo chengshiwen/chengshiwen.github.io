@@ -57,7 +57,6 @@ pre code {padding:0;color:inherit;background-color:transparent;border:0;word-wra
 .entry {margin-bottom:30px;width:680px;float:left;background:#fff;padding:30px;box-shadow:0 2px 6px #ccc;}
 .entry ul {margin-bottom:25px;margin-left:25px;}
 .entry ul ul {margin-bottom:0;}
-.entry p {word-break:break-all;}
 .entry p+ul {margin-top:-20px;}
 .entry ul li {margin-bottom:5px;list-style:disc;line-height:1.8em;}
 .entry ol {margin-bottom:25px;margin-left:25px;}

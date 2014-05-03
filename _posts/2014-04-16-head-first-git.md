@@ -12,7 +12,7 @@ category: blog
 
 Git是[Linus Torvalds][]为了帮助管理Linux内核开发而开发的一个开放源码的版本控制系统。
 
-Torvalds开始着手开发Git是为了作为一种过渡方案来替代BitKeeper，后者之前一直是Linux内核开发人员在全球使用的主要源代码工具。开放源码社区中的有些人觉得BitKeeper的许可证并不适合开放源码社区的工作，因此Torvalds决定着手研究许可证更为灵活的版本控制系统。尽管最初Git的开发是为了辅助Linux内核开发的过程，但是现在越来越多的公司、开源项目使用Git，如[Linux Kernel][]，[Ruby On Rails][]，[jQuery][]，[Node.js][]，[Bootstrap][]，[Django][]等。
+Torvalds开始着手开发Git是为了作为一种过渡方案来替代BitKeeper，后者之前一直是Linux内核开发人员在全球使用的主要源代码工具。开放源码社区中的有些人觉得BitKeeper的许可证并不适合开放源码社区的工作，因此Torvalds决定着手研究许可证更为灵活的版本控制系统。尽管最初Git的开发是为了辅助Linux内核开发的过程，但是现在越来越多的公司、开源项目使用Git，如 [Linux Kernel][]， [Ruby On Rails][]， [jQuery][]， [Node.js][]， [Bootstrap][]， [Django][]等。
 
 Git和其它版本控制系统的主要差别在于，Git只关心文件数据的整体是否发生变化，每个版本存储改动过的所有文件，而大多数其它系统则只关心文件内容的变化差异，每个版本存储变化前后的差异数据。相比其它版本控制系统，Git具有如下优点：
 
@@ -91,13 +91,13 @@ Git仓库用于记录保存项目的元数据和对象数据，包括所有的�
 
 #### 1、Linux
 
+在Ubuntu这类Debian体系的系统上，用apt-get安装：
+
+    $ apt-get install git
+
 在Fedora上用yum安装：
 
     $ yum install git-core
-
-在Ubuntu这类Debian体系的系统上，可以用apt-get安装：
-
-    $ apt-get install git
 
 其它Linux和Unix系统请参考[这里][2]。
 
@@ -268,7 +268,7 @@ Git的基本工作流程如下：
     #   README.md
 
 其中第一行表示当前处在master分支，第二行表示当前分支与远程对应分支的比较结果；<br/>
-`Changes to be committed`表示已暂存，`Changes not staged for commit`表示已修改，`Untracked files`表示未跟踪。
+`Changes to be committed`表示已暂存， `Changes not staged for commit`表示已修改， `Untracked files`表示未跟踪。
 
 若该命令得到以下结果，则表明当前的工作目录相当干净。
 
@@ -399,7 +399,7 @@ Git的基本工作流程如下：
 - `git log --graph`：显示ASCII图形表示的分支合并历史，配合`--oneline`更为简洁
 - `git log --name-status`：显示新增、修改、删除的文件清单
 - `git log [--] <filepattern>`：查看文件或目录的提交记录
-- `git log --grep <pattern>`：搜索提交说明中匹配pattern的提交（如果要得到同时满足这两个搜索条件的提交，就必须用`--all-match`选项；否则，满足任一条件的提交都会被匹配）
+- `git log --grep <pattern>`：搜索提交说明中匹配pattern的提交（若要得到同时满足两个搜索条件的提交，则须用`--all-match`选项；否则，满足任一条件的提交都会被匹配）
 - `git log --pretty=format:<string>`：使用特定格式显示历史提交信息
     - `%H`	：提交对象（commit）的完整哈希字串
     - `%h`	：提交对象的简短哈希字串
@@ -429,7 +429,7 @@ Git的基本工作流程如下：
 
 - `git stash [save <message>]`：附加信息并以入栈方式将当前工作保存到暂存栈中；若不加参数，则默认附加最近提交的说明信息
 - `git stash pop [<stash>]`：恢复暂存栈中引用为`<stash>`的工作，并将其从暂存栈中删除
-- `git stash apply [<stash>]`：恢复暂存栈中引用为`<stash>`的工作，但不从暂存栈中删除它
+- `git stash apply [<stash>]`：恢复暂存栈中引用为`<stash>`的工作，但不从暂存栈删除它
 - `git stash drop [<stash>]`：删除暂存栈中引用为`<stash>`的工作
 - `git stash list`：列出暂存栈中的所有工作
 - `git stash show [<stash>]`：显示暂存栈中引用为`<stash>`的工作的改动记录
@@ -588,7 +588,7 @@ Git使用的标签有两种类型：轻量级的（lightweight）和含附注的
     * master
       testing
 
-其中`*`字符表示当前所在的分支。若要查看各个分支最后一个提交对象的信息，运行`git branch -v`：
+其中`*`表示当前所在分支。若要查看各个分支最后一个提交对象的信息，运行`git branch -v`：
 
     $ git branch -v
       iss53   93b412c fix javascript issue
