@@ -18,13 +18,22 @@ title: 关于我
 
 ### 关于网站
 
-用于技术的分享和交流，同时记录一些个人的随想和感悟  
-本网站基于<a href="https://pages.github.com" target="_blank">GitHub Pages</a>，采用<a href="http://jekyllrb.com" target="_blank">Jekyll</a>模板系统搭建，文章使用<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown</a>标记语言撰写
+用于技术的分享和交流，同时记录一些个人的随想和感悟<br/>
+本网站基于[GitHub Pages][1]{:target="_blank"}，采用[Jekyll][2]{:target="_blank"}模板系统搭建，文章使用[Markdown][3]{:target="_blank"}标记语言撰写
 
 
 ### 联系方式
 
- - 邮箱：<a href="mailto:chengshiwen0103@gmail.com">chengshiwen0103@gmail.com</a>
- - 微博：<a href="http://weibo.com/Septends" target="_blank">http://weibo.com/Septends</a>
- - 留言：<a href="/messages.html">http://cheng-shiwen.com/messages.html</a>
- - GitHub：<a href="https://github.com/cheng-shiwen" target="_blank">https://github.com/cheng-shiwen</a>
+ - 邮箱：[chengshiwen0103@gmail.com][4]
+ - 微博：[http://weibo.com/Septends][5]{:target="_blank"}
+ - 留言：[http://cheng-shiwen.com/messages.html][6]
+ - GitHub：[https://github.com/cheng-shiwen][7]{:target="_blank"}
+
+
+[1]:    https://pages.github.com
+[2]:    http://jekyllrb.com
+[3]:    http://daringfireball.net/projects/markdown/syntax
+[4]:    mailto:chengshiwen0103@gmail.com
+[5]:    http://weibo.com/Septends
+[6]:    /messages.html
+[7]:    https://github.com/cheng-shiwen

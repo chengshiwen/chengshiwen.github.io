@@ -1,4 +1,4 @@
-/***********reset css**********/
+/*****************reset css***************/
 html {color:#000;}
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {margin:0;padding:0;}
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {display:block;}
@@ -26,12 +26,12 @@ body .hide {display:none;}
 .right {float:right;}
 
 
-/***********default settings**********/
+/***************default settings**********/
 body {font-family: "微软雅黑","Arial","Helvetica","sans-serif";font-size:16px;}
 a {color:#4A75B5;text-decoration:none;outline:none;}
 a:hover {text-decoration:underline}
-a.external {padding-right:13px;background:url('/assets/images/icons.png') no-repeat right 2px;}
-a.external:hover {background-position:right -15px;}
+a.external {padding-right:13px;background:url('/assets/images/icons.png') no-repeat right 1px;}
+a.external:hover {background-position:right -16px;}
 .entry-title,.entry-title a {font-size:30px;font-weight:bold;margin-bottom:6px;color:#000;text-align:center;word-wrap: break-word;}
 .entry-title a:hover {text-decoration:none;}
 .entry-date {text-align:center;color:#999;margin-bottom:60px;font-size:14px;}
@@ -45,8 +45,8 @@ code {padding:1px 4px;font-size:14px;color:#333;background-color:#f5f5f5;border:
 pre {overflow:auto;border:1px solid #999;page-break-inside:avoid;display:block;padding:9.5px;margin-bottom: 20px;font-size:14px;line-height:1.428571429;color:#333;background-color:#f5f5f5;border:1px solid #ccc;border-radius:4px}
 pre code {padding:0;color:inherit;background-color:transparent;border:0;word-wrap:normal;}
 
-/************layout style*****************/
-#content {width:1060px;margin:90px auto 30px;min-height:400px;height:auto !important;height:400px;}
+/***************layout style**************/
+#content {width:1060px;margin:90px auto 30px;min-height:500px;height:auto !important;height:500px;}
 
 /****************entry style**************/
 .sidenav {width:240px;background:#fff;float:right;padding:20px;margin-bottom:50px;box-shadow:0 1px 4px #ccc;}
@@ -64,19 +64,19 @@ pre code {padding:0;color:inherit;background-color:transparent;border:0;word-wra
 .entry blockquote {margin-left:25px;font-size:14px;font-style:italic;}
 .entry img {max-width:670px;display:block;margin:10px auto;}
 
-/***************index-content style*************/
+/*************index-content style*********/
 .index-content {padding-top:30px;}
 .index-content .artical-list {width:85%;margin:0 auto;}
 .index-content .artical-list li {margin-bottom:70px;list-style:none;}
 .index-content h2 {font-size:20px;margin-bottom:15px;word-break:break-all;}
 .index-content h2 a {color:#444}
-.index-content h2 a:hover {color:#08c;text-decoration:none;}
+.index-content h2 a:hover {color:#2f7ed8;text-decoration:none;}
 .index-content .title-desc {color:#999;font-size:14px;line-height:1.6em;}
 
 /***************comment style*************/
 #ds_container {margin-top:60px;}
 
-/**************目录导航**************/
+/**************menuIndex style************/
 #menuIndex {overflow:auto;}
 #menuIndex a {display:block;padding:2px 0;}
 #menuIndex a:hover {text-decoration:none;}
