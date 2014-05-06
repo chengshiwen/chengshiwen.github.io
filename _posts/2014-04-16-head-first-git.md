@@ -418,6 +418,63 @@ Git的基本工作流程如下：
 - `git log --diff-filter=D --summary`：列出版本库中曾删除过文件的提交
 - `git log --diff-filter=D --summary | grep delete`：列出所有已删除的历史文件
 
+**指明特定范围的提交**：
+
+**两点**
+
+`<commit1>..<commit2>`：属于commit2分支但不属于commit1分支的提交
+
+              A---B---C topic
+             /
+        D---E---F---G master
+
+    $ git log topic..master
+    G
+    F
+    $ git log master..topic
+    C
+    B
+    A
+
+这在你想保持master分支最新和预览你将合并的提交的时候特别有用。另一种常见用法是查看你将推送到远程的改动：
+
+    $ git log origin/master..HEAD
+
+这条命令显示任何在你当前分支上而不在远程master分支上的提交。
+
+**多点**
+
+若想针对两个以上的分支来指明特定范围的提交，比如查看哪些提交被包含在某些分支中的一个，但是不在当前的分支上。Git允许你在引用前使用`^`字符或者`--not`指明你不希望提交被包含在其中的分支。因此下面三个命令是等同的：
+
+    $ git log refA..refB
+    $ git log ^refA refB
+    $ git log refB --not refA
+
+它允许你在查询中指定多于两个的引用，而这是双点语法所做不到的。例如，如果你想查找所有从`refA`或`refB`包含的但是不被`refC`包含的提交，你可以输入下面中的一个
+
+    $ git log refA refB ^refC
+    $ git log refA refB --not refC
+
+**三点**
+
+`<commit1>...<commit2>`：属于commit1分支或commit2分支但不是两者共有的提交
+
+    $ git log topic...master
+    C
+    B
+    A
+    G
+    F
+
+使用`--left-right`参数将显示每个提交处于哪一侧分支：
+
+    $ git log topic...master
+    < C
+    < B
+    < A
+    > G
+    > F
+
 #### 2、保存当前工作 {#git-stash}
 
 将当前工作（即工作目录和暂存区的当前状态）保存到**暂存栈**（和暂存区域完全无关），同时让工作目录回退至上次提交后的干净状态。
@@ -1426,13 +1483,13 @@ repack后仓库的大小减小到了7KB，远小于之前的2MB。从size值可�
 
 在Bash中使用Git命令自动补全，将使得工作变得更简单，更轻松，更高效。Git官方提供了[git-completion.bash][5]的自动补全脚本，将该文件保存下来，运行：
 
-    mv git-completion.bash ~/.git-completion.bash
+    $ mv git-completion.bash ~/.git-completion.bash
 
 并把下面一行内容添加到`~/.bashrc`文件中：
 
-    source ~/.git-completion.bash
+    $ source ~/.git-completion.bash
 
-也可以为系统上所有用户都设置默认使用此脚本。Mac上将此脚本复制到`/opt/local/etc/bash_completion.d/`目录中，Linux上则复制到`/etc/bash_completion.d/`目录中。这两处目录中的脚本，都会在Bash启动时自动加载。
+也可以为系统上所有用户都设置默认使用此脚本。Mac上将此脚本复制到 `/opt/local/etc/bash_completion.d/` 目录中，Linux上则复制到 `/etc/bash_completion.d/` 目录中。这两处目录中的脚本，都会在Bash启动时自动加载。
 
 如果在Windows上安装了msysGit，默认使用的Git Bash就已经配好了这个自动补全脚本，可以直接使用。
 
@@ -1478,7 +1535,7 @@ repack后仓库的大小减小到了7KB，远小于之前的2MB。从size值可�
 
 对于一些想要公开的项目，可以将这些项目放到上述公共的Git服务器上，由它们进行托管。当然，如果不希望项目公开，可以设置为私有（部分Git托管服务会收取一定的费用）。
 
-此外，可以在自己的服务器上搭建Git服务，具体方法详见[这里](http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%83%A8%E7%BD%B2-Git)。本文提供三种搭建Git服务的工具：
+此外，可以在自己的服务器上搭建Git服务，具体方法详见[这里][8]。本文提供三种搭建Git服务的工具：
 
 - [GitLab](https://www.gitlab.com/)（可以采用[Bitnami Gitlab](https://bitnami.com/stack/gitlab)一键安装GitLab)
 - [Gitosis](http://git-scm.com/book/en/Git-on-the-Server-Gitosis)
@@ -1514,7 +1571,7 @@ repack后仓库的大小减小到了7KB，远小于之前的2MB。从size值可�
 - [`reset`](#git-reset) [`revert`](#git-revert) [`rebase`](#git-rebase)
 - [`show`](#git-show) [`grep`](#git-grep) [`blame`](#git-blame) [`bisect`](#git-bisect) [`help`](#git-help)
 
-附：[Git常用命令简记图](http://pic002.cnblogs.com/img/1-2-3/201007/2010072023345292.png)
+附：[Git常用命令简记图][9]
 
 
 [Git]:              http://git-scm.com "Git"
@@ -1532,3 +1589,5 @@ repack后仓库的大小减小到了7KB，远小于之前的2MB。从size值可�
 [5]:    https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
 [6]:    http://www.zsh.org
 [7]:    http://ohmyz.sh
+[8]:    http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%83%A8%E7%BD%B2-Git
+[9]:    http://pic002.cnblogs.com/img/1-2-3/201007/2010072023345292.png
