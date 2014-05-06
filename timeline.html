@@ -1,0 +1,66 @@
+---
+layout: default
+title: 个人历程
+---
+
+<style type="text/css">
+    body { background:#e8e8e8; }
+</style>
+
+<div class="timeline">
+    <ul class="event_year">
+        <li class="current"><label for="2014">2014</label></li>
+        <li><label for="2013">2013</label></li>
+        <li><label for="2012">2012</label></li>
+        <li><label for="2011">2011</label></li>
+        <li><label for="2010">2010</label></li>
+        <li><label for="2009">2009</label></li>
+    </ul>
+    <ul class="event_list">
+        <div>
+            <h3 id="2014">2014</h3>
+            <li><span>4月</span><p><span>搭建<a href="http://cheng-shiwen.com" target="_blank">个人网站cheng-shiwen.com</a>，用于技术的分享和交流，同时记录一些个人的随想和感悟</span></p></li>
+            <li><span>3月</span><p><span>进入百度公司实习，主要工作为网络流量数据的异常检测分析</span></p></li>
+        </div>
+
+        <div>
+            <h3 id="2013">2013</h3>
+            <li><span>11月</span><p><span>加入水木启航手机网游创业团队，<strong>iOS手机互联网游戏核心开发成员</strong></span></p></li>
+            <li><span>10月</span><p><span>参与开发国外<a href="https://github.com/edx/edx-platform" target="_blank">edX开源项目</a>，并贡献部分代码</span></p></li>
+            <li><span>7月-9月</span><p><span>参与设计开发清华大学大规模开放在线课程（MOOC）平台<a href="http://xuetangx.com/" target="_blank">学堂在线xuetangx.com</a>，<strong>核心设计和开发成员</strong></span></p></li>
+        </div>
+
+        <div>
+            <h3 id="2012">2012</h3>
+            <li><span>5月</span><p><span>参加百度之星产品设计大赛，设计作品获得华北赛区第三名</span></p></li>
+        </div>
+
+        <div>
+            <h3 id="2011">2011</h3>
+            <li><span>9月</span><p><span>修读清华大学经济管理学院经济学（第二学位）专业</span></p></li>
+        </div>
+
+        <div>
+            <h3 id="2010">2010</h3>
+            <li><span>9月</span><p><span>入读清华大学，并修读计算机系计算机科学与技术专业</span></p></li>
+            <li><span>1月</span><p><span>获得中国数学奥林匹克（第25届全国中学生数学冬令营）银牌</span></p></li>
+        </div>
+
+        <div>
+            <h3 id="2009">2009</h3>
+            <li><span>1月</span><p><span>获得中国数学奥林匹克（第24届全国中学生数学冬令营）银牌</span></p></li>
+        </div>
+    </ul>
+</div>
+
+<script>
+    $(function(){
+        $('label').click(function(){
+            $('.event_year>li').removeClass('current');
+            $(this).parent('li').addClass('current');
+            var year = $(this).attr('for');
+            $('#' + year).parent().prevAll('div').slideUp(800);
+            $('#' + year).parent().slideDown(800).nextAll('div').slideDown(800);
+        });
+    });
+</script>
