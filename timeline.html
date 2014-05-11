@@ -54,8 +54,12 @@ title: 个人历程
 </div>
 
 <script>
-    $(function(){
-        $('label').click(function(){
+    $(function() {
+        if ($(window).width() < 1100) {
+            $('.event_list li p').width($('.event_list').width() - 170);
+            $('.event_list li p span').width($('.event_list').width() - 200);
+        }
+        $('label').click(function() {
             $('.event_year>li').removeClass('current');
             $(this).parent('li').addClass('current');
             var year = $(this).attr('for');
