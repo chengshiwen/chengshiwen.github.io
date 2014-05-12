@@ -5,6 +5,26 @@ title: 个人历程
 
 <style type="text/css">
     body { background:#e8e8e8; }
+    @media screen and (max-width: 1100px) {
+        .timeline { width:80%; }
+        .event_year { display:none; }
+        .event_list { float:none;width:auto;background:url('/assets/images/timeline2.png') 100px 0 repeat-y; }
+        .event_list h3 { margin:0 0 10px 93px; }
+        .event_list li { background:url('/assets/images/timeline1.png') 97px -80px no-repeat; }
+        .event_list li span { width:88px; }
+    }
+    @media screen and (max-width: 950px) {
+        .timeline { width:90%; }
+    }
+    @media screen and (max-width: 750px) {
+        .timeline { width:100%; }
+    }
+    @media screen and (max-width: 450px) {
+        .event_list { background:url('/assets/images/timeline2.png') 65px 0 repeat-y; }
+        .event_list h3 { margin:0 0 10px 58px; }
+        .event_list li { background:url('/assets/images/timeline1.png') 62px -80px no-repeat; }
+        .event_list li span { width:53px; }
+    }
 </style>
 
 <div class="timeline">
@@ -27,7 +47,7 @@ title: 个人历程
             <h3 id="2013">2013</h3>
             <li><span>11月</span><p><span>加入水木启航手机网游创业团队，<strong>iOS手机互联网游戏核心开发成员</strong></span></p></li>
             <li><span>10月</span><p><span>参与开发国外<a href="https://github.com/edx/edx-platform" target="_blank">edX开源项目</a>，并贡献部分代码</span></p></li>
-            <li><span>7月-9月</span><p><span>参与设计开发清华大学大规模开放在线课程（MOOC）平台<a href="http://xuetangx.com/" target="_blank">学堂在线xuetangx.com</a>，<strong>核心设计和开发成员</strong></span></p></li>
+            <li><span>7-9月</span><p><span>参与设计开发清华大学大规模开放在线课程（MOOC）平台<a href="http://xuetangx.com/" target="_blank">学堂在线xuetangx.com</a>，<strong>核心设计和开发成员</strong></span></p></li>
         </div>
 
         <div>
@@ -55,7 +75,13 @@ title: 个人历程
 
 <script>
     $(function() {
-        if ($(window).width() < 1100) {
+        if ($(window).width() <= 385) {
+            $('.event_list li p').width($('.event_list').width() - 170 + 65);
+            $('.event_list li p span').width($('.event_list').width() - 200 + 65);
+        } else if ($(window).width() <= 435) {
+            $('.event_list li p').width($('.event_list').width() - 170 + 45);
+            $('.event_list li p span').width($('.event_list').width() - 200 + 45);
+        } else if ($(window).width() <= 1115) {
             $('.event_list li p').width($('.event_list').width() - 170);
             $('.event_list li p span').width($('.event_list').width() - 200);
         }
