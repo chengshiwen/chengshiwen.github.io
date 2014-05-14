@@ -1392,7 +1392,32 @@ Git发现在你标记为正常的提交（v1.0）和当前的错误版本之间�
 
 repack后仓库的大小减小到了7KB，远小于之前的2MB。从size值可以看出大文件对象还在松散对象中，其实并没有消失，不过这没有任何关系，在之后的推送或克隆中，这个对象不会再传送出去。如果真的要完全把这个对象删除，可以运行`git prune --expire`命令。
 
-#### 7、获取帮助 {#git-help}
+#### 7、SVN桥接 {#git-svn}
+
+Git最为重要的特性之一是名为`git svn`的Subversion（SVN）双向桥接工具，该工具把Git变成了Subversion服务的客户端，从而让你在本地享受到Git所有的功能，而后直接向Subversion服务器推送改动，仿佛在本地使用了Subversion客户端。
+
+命令格式为：
+
+    $ git svn <command> [options] [arguments]
+
+常用命令：
+
+- `git svn init <repo_url>`：初始化SVN仓库
+- `git svn fetch`：拉取SVN服务器最新版本，但不更新到本地工作目录
+- `git svn clone <repo_url>`：克隆SVN仓库（`init`及`fetch`）
+- `git svn rebase`：拉取SVN服务器最新版本，并更新到本地工作目录
+- `git svn dcommit`：提交改动到SVN服务器
+    - 建议执行该命令前进行多次离线commit: `git commit`
+- `git svn branch`：在SVN仓库中进行分支操作
+- `git svn tag`：在SVN仓库中创建标签
+- `git svn log`：查看SVN风格的历史提交
+- `git svn reset`：重置到指定版本
+- `git svn commit-diff`：比较两个提交之间的差异
+- `git svn info`：查看SVN服务器信息
+
+此外可参考[官方简要文档][10]，更多子命令及参数详见`git help`。
+
+#### 8、获取帮助 {#git-help}
 
 基本命令为`git help`，可以查看命令的相关帮助，有三种方法：
 
@@ -1512,10 +1537,10 @@ repack后仓库的大小减小到了7KB，远小于之前的2MB。从size值可�
 
 一些不错的Git图形化工具可以使人从枯燥的命令行中解脱，如：
 
-- [GitX (L)](http://gitx.laullon.com)（Mac，开源免费）
-- [SourceTree](http://www.sourcetreeapp.com)（Windows / Mac，免费）
+- [SourceTree](http://www.sourcetreeapp.com)（Windows / Mac，免费，推荐）
 - [TortoiseGit](https://code.google.com/p/tortoisegit/)（Windows，免费）
 - [GitHub for Mac](https://mac.github.com)，[GitHub for Windows](https://windows.github.com)（Mac / Windows，免费）
+- [GitX (L)](http://gitx.laullon.com)（Mac，开源免费）
 - [GitEye](http://www.collab.net/giteyeapp)（Windows / Linux / Mac，免费）
 - [git-cola](http://git-cola.github.io)（Windows / Linux / Mac，开源免费）
 - [Git Extensions](https://code.google.com/p/gitextensions)（Windows / Linux / Mac，免费）
@@ -1535,7 +1560,8 @@ repack后仓库的大小减小到了7KB，远小于之前的2MB。从size值可�
 
 对于一些想要公开的项目，可以将这些项目放到上述公共的Git服务器上，由它们进行托管。当然，如果不希望项目公开，可以设置为私有（部分Git托管服务会收取一定的费用）。
 
-此外，可以在自己的服务器上搭建Git服务，具体方法详见[这里][8]。本文提供三种搭建Git服务的工具：
+此外，可以在自己的服务器上手动搭建Git服务，具体方法详见[这里][8]。<br/>
+本文提供另外三种搭建Git服务的部署工具：
 
 - [GitLab](https://www.gitlab.com/)（可以采用[Bitnami Gitlab](https://bitnami.com/stack/gitlab)一键安装GitLab)
 - [Gitosis](http://git-scm.com/book/en/Git-on-the-Server-Gitosis)
@@ -1569,7 +1595,7 @@ repack后仓库的大小减小到了7KB，远小于之前的2MB。从size值可�
 - [`branch`](#git-branch) [`checkout`](#git-checkout) [`merge`](#git-merge) [`cherry-pick`](#git-cherry-pick)
 - [`remote`](#git-remote) [`push`](#git-push) [`fetch`](#git-fetch) [`pull`](#git-pull)
 - [`reset`](#git-reset) [`revert`](#git-revert) [`rebase`](#git-rebase)
-- [`show`](#git-show) [`grep`](#git-grep) [`blame`](#git-blame) [`bisect`](#git-bisect) [`help`](#git-help)
+- [`show`](#git-show) [`grep`](#git-grep) [`blame`](#git-blame) [`bisect`](#git-bisect) [`help`](#git-help) [`svn`](#git-svn)
 
 附：[Git常用命令简记图][9]
 
@@ -1591,3 +1617,4 @@ repack后仓库的大小减小到了7KB，远小于之前的2MB。从size值可�
 [7]:    http://ohmyz.sh
 [8]:    http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%83%A8%E7%BD%B2-Git
 [9]:    http://pic002.cnblogs.com/img/1-2-3/201007/2010072023345292.png
+[10]:   http://git-scm.com/book/zh/Git-%E4%B8%8E%E5%85%B6%E4%BB%96%E7%B3%BB%E7%BB%9F-Git-%E4%B8%8E-Subversion
