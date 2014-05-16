@@ -50,6 +50,13 @@ $(document).ready(function(){
                     h2.push(h2item);
                     h2index++;
                 } else {
+                    if (h2index == 0) {
+                        var h2item = {};
+                        h2item.name = '目录';
+                        h2item.id = '';
+                        h2.push(h2item);
+                        h2index++;
+                    }
                     var h3item = {};
                     h3item.name = $(item).text();
                     h3item.id = 'menuIndex' + index;
@@ -119,7 +126,7 @@ $(document).ready(function(){
             };
         })();
 
-        if($('.entry h2').length > 2 && !isMobile.any() && !ie6_8) {
+        if(($('.entry h2').length > 1 || $('.entry h3').length > 2) && !isMobile.any() && !ie6_8) {
 
             genIndex();
 
@@ -168,7 +175,7 @@ $(document).ready(function(){
                                 }
                             }
                         }
-                        console.log(index);
+
                         if (index > 0) {
                             $('#menuIndex li').removeClass('on');
                             $('#menuIndex li').eq(index-1).addClass('on');

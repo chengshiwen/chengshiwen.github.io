@@ -68,7 +68,7 @@ pre code {padding:0;color:inherit;background-color:transparent;border:0;word-wra
 .index-content {padding-top:30px;}
 .index-content .artical-list {width:85%;margin:0 auto;}
 .index-content .artical-list li {margin-bottom:70px;list-style:none;}
-.index-content h2 {font-size:20px;margin-bottom:15px;word-break:break-all;}
+.index-content h2 {font-size:20px;margin-bottom:15px;}
 .index-content h2 a {color:#444}
 .index-content h2 a:hover {color:#2f7ed8;text-decoration:none;}
 .index-content .title-desc {color:#999;font-size:14px;line-height:1.6em;}
