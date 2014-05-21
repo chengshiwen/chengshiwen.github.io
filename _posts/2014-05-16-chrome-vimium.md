@@ -23,8 +23,8 @@ Vimium 其实就是 [Vim][] 与 [Chromium][] 的复合词，这款扩展基于 V
 
 ### 页面操作
 
-- `j, <c-e>`：向下滚动（`c-e`指`ctrl-e`）
-- `k, <c-y>`：向上滚动（`c-y`指`ctrl-y`）
+- `j, <c-e>`：向下滚动（`<c-e>` 即 `<ctrl-e>` 或 `<control-e>`）
+- `k, <c-y>`：向上滚动（`<c-y>` 即 `<ctrl-y>` 或 `<control-y>`）
 - `h`：向左滚动
 - `l`：向右滚动
 - `gg`：跳到最顶部
@@ -37,11 +37,11 @@ Vimium 其实就是 [Vim][] 与 [Chromium][] 的复合词，这款扩展基于 V
 - `yf`：复制一个网页链接到剪贴板
 - `p`：在当前标签页打开剪切板的网址
 - `P`：在新建标签页打开剪切板的网址
-- `i`：进入插入模式（禁用Vimium快捷键，此时可使用网站已有的快捷键）
-- `gi`：将焦点定位到第一个输入框（`Ngi`定位到第`N`个输入框）
+- `i`：进入插入模式（禁用 Vimium 快捷键，此时可使用网站已有的快捷键）
+- `gi`：将焦点定位到第一个输入框（`Ngi` 定位到第 `N` 个输入框）
 - `f`：在当前标签页打开网页链接
 - `F`：在新建标签页打开网页链接
-- `<a-f>`：在新建标签页打开多个网页链接（`a-f`指`alt-f`）
+- `<a-f>`：在新建标签页打开多个网页链接（`<a-f>` 即 `<alt-f>` 或 `<option-f>`）
 - `o`：在当前标签页打开网址、书签或历史
 - `O`：在新建标签页打开网址、书签或历史
 - `T`：在已打开的标签页中搜索
@@ -81,7 +81,7 @@ Vimium 其实就是 [Vim][] 与 [Chromium][] 的复合词，这款扩展基于 V
 - `?`：显示帮助信息
 
 
-[Vimium]:   https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb
+[Vimium]:   http://vimium.github.io/
 [Vim]:      http://www.vim.org/
 [Chromium]: http://www.chromium.org/
 [1]:        http://cheng-shiwen.com/
