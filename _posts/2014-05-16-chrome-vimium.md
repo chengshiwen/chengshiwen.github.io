@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Chrome浏览之快捷键神器：Vimium
-description: 对于不喜欢使用鼠标，只热衷使用键盘快捷键完成一切电脑操作的Geeker，在浏览网页时，也不得不被太多的网页链接所影响，导致效率严重降低。不过如果你使用Chrome浏览器的话，那么Vimium将是帮助你浏览网页的快捷键神器。
+title: Chrome 浏览神器：Vimium
+description: 对于不喜欢使用鼠标，只热衷使用键盘快捷键完成一切电脑操作的 Geeker，在浏览网页时，也不得不被太多的网页链接所影响，导致效率严重降低。不过如果你使用 Chrome 浏览器的话，那么 Vimium 将是帮助你浏览网页的快捷键神器。
 category: blog
 ---
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 深入浅出Git
+title: 深入浅出 Git
 description: Git是一款自由和开源的分布式版本控制系统，用于软件项目的管理和开发。本篇文章从Git基本概念和原理出发，深入浅出地介绍Git的基本命令和使用技巧，及博主在使用Git过程中的一些心得体会，借以温故知新。
 category: blog
 ---
