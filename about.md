@@ -19,7 +19,7 @@ title: 关于我
 ### 关于网站
 
 用于技术的分享和交流，同时记录一些个人的随想和感悟<br/>
-本网站基于[GitHub Pages][1]{:target="_blank"}，采用[Jekyll][2]{:target="_blank"}模板系统搭建，文章使用[Markdown][3]{:target="_blank"}标记语言撰写
+本网站基于 [GitHub Pages][1]{:target="_blank"}，采用 [Jekyll][2]{:target="_blank"} 模板系统搭建，文章使用 [Markdown][3]{:target="_blank"} 标记语言撰写
 
 
 ### 联系方式
