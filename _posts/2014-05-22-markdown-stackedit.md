@@ -114,7 +114,7 @@ StackEdit 支持离线编辑，但前提是 StackEdit 所有必需数据已经�
     1. 将图片 `example.png` 放置到 `{StackEdit目录}/public/res-min/img/`目录下
     2. 插入 `/res-min/img/example.png` 链接即可使用该图片
 
-![](/assets/images/markdown-stackedit/stackedit-image.png)
+![](/assets/images/markdown-stackedit/stackedit-image.png){:style="border: 2px solid #ccc;"}
 {:style="margin-top: -20px;"}
 
 
