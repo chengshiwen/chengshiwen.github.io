@@ -45,7 +45,7 @@ Git仓库用于记录保存项目的元数据和对象数据，包括所有的�
 **分支（branch）**用橘色节点显示，分别指向特定的提交，其实本质上仅仅是个指向提交对象的可变指针。Git会使用master作为分支的默认名字。在若干次提交后，master分支会指向最近一次提交对象，它在每次提交的时候都会自动向前移动。dev分支即是指向`a473c87`提交对象的一个分支指针。<br/>
 不同分支维护的功能不同，如版本稳定、新功能开发、代码测试等。
 
-**HEAD指针**是一个指向你当前所处的本地分支的指针（相当于当前分支的别名，指向当前分支最近的一次提交对象），在你切换分支时会指向新的分支，而当每次提交后HEAD指针也会随着分支一起向前移动。
+**HEAD指针**是一个指向你当前所处的本地分支的指针（相当于当前分支的别名，指向当前分支最近的一次提交对象），在你切换分支时会指向新的分支，而当每次提交改动后HEAD指针也会随着分支一起向前移动。
 
 #### 3、SHA-1哈希值
 
@@ -121,7 +121,7 @@ Git提供`git config`命令来配置或读取相应的工作环境变量，这�
 - `~/.gitconfig`文件：用户目录下的配置文件，使用`git config --global`进行读写。
 - `{项目目录}/.git/config`文件：当前项目的配置文件，使用`git config --local`或`git config`进行读写。
 
-每一个级别的配置都会覆盖上层的相同配置。
+每一个级别的配置都会覆盖上层的相同配置。建议最好修改用户目录下的配置文件；对于特定的项目，可以修改项目的配置文件，从而覆盖用户目录下的配置。
 
 #### 1、用户信息
 
@@ -253,7 +253,7 @@ Git的基本工作流程如下：
     #   (use "git reset HEAD <file>..." to unstage)
     #
     #   new file:   daemon.c
-    #	modified:   grep.c
+    #   modified:   grep.c
     #
     # Changes not staged for commit:
     #   (use "git add <file>..." to update what will be committed)
@@ -706,9 +706,9 @@ Git使用的标签有两种类型：轻量级的（lightweight）和含附注的
 
 快进合并是默认方式，若想每次合并都创建一个新的提交记录，使用`–-no-ff`参数，例如上述例子运行
 
-    $ git merge –-no-ff topic
+    $ git merge --no-ff topic
 
-得到
+得到（`F`即为一个新的合并提交记录）
 
               A---B---C topic
              /         \
@@ -802,7 +802,7 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
              /
         D---E---F---G---B' master
 
-其中B和B'作了相同的改动，但是不同的提交。
+其中`B`和`B'`作了相同的改动，但是不同的提交。
 
 ### 远程交互
 
@@ -976,7 +976,7 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
                              /
                 D---E---F---G master
 
-    - 如果upstream分支已经包含branch分支所作的改动，则branch分支中的这次改动会被跳过（其中A和A'作了相同的改动，但是不同的提交）：
+    - 如果upstream分支已经包含branch分支所作的改动，则branch分支中的这次改动会被跳过（其中`A`和`A'`作了相同的改动，但是不同的提交）：
 
                       A---B---C topic
                      /
@@ -1562,12 +1562,16 @@ Git最为重要的特性之一是名为`git svn`的Subversion（SVN）双向桥�
 
 对于一些想要公开的项目，可以将这些项目放到上述公共的Git服务器上，由它们进行托管。当然，如果不希望项目公开，可以设置为私有（部分Git托管服务会收取一定的费用）。
 
+#### 6、Git服务器搭建
+
 此外，可以在自己的服务器上手动搭建Git服务，具体方法详见[这里][8]。<br/>
 本文提供另外三种搭建Git服务的部署工具：
 
 - [GitLab](https://www.gitlab.com/)（可以采用[Bitnami Gitlab](https://bitnami.com/stack/gitlab)一键安装GitLab)
 - [Gitosis](http://git-scm.com/book/en/Git-on-the-Server-Gitosis)
 - [Gitolite](http://git-scm.com/book/en/Git-on-the-Server-Gitolite)
+
+#### 7、个人离线开发
 
 如果不需要和其他人进行协作开发，也不想公开项目，甚至不想要搭建Git服务，那么可以直接使用本地路径完成Git仓库间的操作。
 
@@ -1586,7 +1590,7 @@ Git最为重要的特性之一是名为`git svn`的Subversion（SVN）双向桥�
             remote = origin
             merge = refs/heads/master
 
-此时，我们便能在`example`项目下进行正常的Git操作，而在`~/GitRemote/example.git`下可以查看相应的远程仓库。
+此时，我们便能在`example`项目下进行正常的Git操作，而在`~/GitRemote/example.git`下可以查看相应的远程仓库——并且在任何路径下都可以clone这个远程仓库（其它机器则需要有访问当前机器的权限）。
 
 
 ## Git命令索引
