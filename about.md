@@ -13,7 +13,17 @@ title: 关于我
 
 #### 标签
 
-`IT互联网` `数码控` `极客` `旅行` `音乐` `低调` `游戏` `金融` `强迫症`
+`IT互联网` `数码控` `极客` `码农` `旅行` `音乐` `低调` `数学` `金融` `游戏` `补刀` `强迫症`
+
+#### 技能
+
+ - 精通 C，C++，Python；熟悉 Java，PHP，Shell；了解 Objective-C，Go，Cocos2d-x
+ - 精通 Django Web，Java Web；熟悉 Nginx，Apache 生产服务器的部署
+ - 精通 HTML，JavaScript，CSS；熟悉 jQuery，Bootstrap；了解 Node.js，Backbone.js，CoffeeScript
+ - 精通 Linux，Mac OS X；熟悉 Windows，iOS
+ - 熟悉 SQLite3，MySQL；了解 MongoDB
+ - 精通 Git，SVN
+ - 精通数学，熟悉常见数据结构及算法
 
 
 ### 关于网站
