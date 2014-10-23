@@ -36,7 +36,7 @@ title: 关于我
 
  - 邮箱：[chengshiwen0103@gmail.com][4]
  - 微博：[http://weibo.com/Septends][5]{:target="_blank"}
- - 留言：[http://cheng-shiwen.com/messages.html][6]
+ - 留言：[http://chengshiwen.com/messages.html][6]
  - GitHub：[https://github.com/cheng-shiwen][7]{:target="_blank"}
 
 

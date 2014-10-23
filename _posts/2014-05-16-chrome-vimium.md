@@ -84,4 +84,4 @@ Vimium 其实就是 [Vim][] 与 [Chromium][] 的复合词，这款扩展基于 V
 [Vimium]:   http://vimium.github.io/
 [Vim]:      http://www.vim.org/
 [Chromium]: http://www.chromium.org/
-[1]:        http://cheng-shiwen.com/
+[1]:        http://chengshiwen.com/
