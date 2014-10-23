@@ -3,7 +3,7 @@ layout: page
 title: 关于我
 ---
 
-<iframe width="190" height="75" class="share_self" frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=190&height=75&fansRow=1&ptype=1&speed=0&skin=5&isTitle=0&noborder=0&isWeibo=0&isFans=0&uid=2010283231&verifier=456d70aa&dpc=1"></iframe>
+<iframe width="100%" height="75" class="share_self" frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=75&fansRow=1&ptype=1&speed=0&skin=5&isTitle=0&noborder=0&isWeibo=0&isFans=0&uid=1834994197&verifier=09d0e2bb&dpc=1"></iframe>
 <h2>关于我</h2>
 <hr style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" color="#e8e8e8" size="3" />
 
@@ -35,7 +35,7 @@ title: 关于我
 ### 联系方式
 
  - 邮箱：[chengshiwen0103@gmail.com][4]
- - 微博：[http://weibo.com/Septends][5]{:target="_blank"}
+ - 微博：[http://weibo.com/u/1834994197][5]{:target="_blank"}
  - 留言：[http://chengshiwen.com/messages.html][6]
  - GitHub：[https://github.com/cheng-shiwen][7]{:target="_blank"}
 
@@ -44,6 +44,6 @@ title: 关于我
 [2]:    http://jekyllrb.com
 [3]:    http://daringfireball.net/projects/markdown/syntax
 [4]:    mailto:chengshiwen0103@gmail.com
-[5]:    http://weibo.com/Septends
+[5]:    http://weibo.com/u/1834994197
 [6]:    /messages.html
 [7]:    https://github.com/cheng-shiwen
