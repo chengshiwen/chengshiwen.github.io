@@ -19,9 +19,9 @@ title: 关于我
 
  - 精通 C，C++，Python；熟悉 Java，PHP，Shell；了解 Objective-C，Go，Cocos2d-x
  - 精通 Django Web，Java Web；熟悉 Nginx，Apache 生产服务器的部署
- - 精通 HTML，JavaScript，CSS；熟悉 jQuery，Bootstrap；了解 Node.js，Backbone.js，CoffeeScript
+ - 精通 HTML，JavaScript，CSS；精通 jQuery，Bootstrap；了解 Node.js，CoffeeScript
  - 精通 Linux，Mac OS X；熟悉 Windows，iOS
- - 熟悉 SQLite3，MySQL；了解 MongoDB
+ - 精通 MySQL, SQLite3；了解 MongoDB
  - 精通 Git，SVN
  - 精通数学，熟悉常见数据结构及算法
 
