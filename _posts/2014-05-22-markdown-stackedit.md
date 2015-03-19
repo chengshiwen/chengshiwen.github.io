@@ -3,6 +3,7 @@ layout: post
 title: 在线 Markdown 编辑器 StackEdit
 description: StackEdit 是作者 Benoit Schweblin 开发的一个在线 Markdown 编辑器，基于 PageDown，不仅开源免费，完全支持 Markdown 的所有特性，而且还支持 LaTeX 数学公式编辑、实时预览、多份文档同时管理、在线同步、远端网盘和本地硬盘备份、PDF 和 HTML 文档发布等诸多强大功能。
 category: blog
+published: false
 ---
 
 [StackEdit][] 是作者 [Benoit Schweblin][1] 开发的一个在线 [Markdown][] 编辑器，基于 [PageDown][]，不仅开源免费，完全支持 Markdown 的所有特性，而且还支持 [LaTeX][] 数学公式编辑、实时预览、多份文档同时管理、在线同步、远端网盘和本地硬盘备份、PDF 和 HTML 文档发布等诸多强大功能。
