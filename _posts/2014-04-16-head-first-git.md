@@ -1581,7 +1581,12 @@ Git最为重要的特性之一是名为`git svn`的Subversion（SVN）双向桥�
     $ git init
     $ git clone --bare ../example ~/GitRemote/example.git
 
-然后编辑`.git/config`文件，追加以下内容（注意修改相应的`url`）：
+然后进行项目配置，运行：
+
+    $ git remote add origin ~/GitRemote/example.git
+    $ git branch --set-upstream-to=origin/master master
+
+或者也可以直接编辑`.git/config`文件，追加以下内容（注意修改相应的`url`）：
 
     [remote "origin"]
             fetch = +refs/heads/*:refs/remotes/origin/*
