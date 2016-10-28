@@ -3,6 +3,6 @@ title: 奇小在的个人网站
 url: http://chengshiwen.com
 
 markdown: kramdown
-highlighter: pygments
+highlighter: rouge
 permalink: /article/:title
 paginate: 6
