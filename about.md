@@ -17,13 +17,15 @@ title: 关于我
 
 #### 技能
 
- - 精通 C，C++，Python；熟悉 Java，PHP，Shell；了解 Objective-C，Go，Cocos2d-x
- - 精通 Django Web，Java Web；熟悉 Nginx，Apache 生产服务器的部署
- - 精通 HTML，JavaScript，CSS；精通 jQuery，Bootstrap；了解 Node.js，CoffeeScript
- - 精通 Linux，Mac OS X；熟悉 Windows，iOS
- - 精通 MySQL, SQLite3；了解 MongoDB
- - 精通 Git，SVN
- - 精通数学，熟悉常见数据结构及算法
+ - 精通 C，C++，Python；熟练 Java，PHP，Shell，MATLAB
+ - 精通 Django Web，Java Web；熟练 HTTP, TCP/IP；熟悉 Nginx，Apache
+ - 精通 HTML/HTML5，JavaScript，CSS；精通 jQuery，Bootstrap
+ - 精通 Linux，Mac OS X；熟练 Windows
+ - 精通 MySQL，Redis；熟练 Memcached，MongoDB，SQLite3
+ - 熟悉 Nagios，Kafka，Spark，HBase，OpenTSDB，Hadoop，Mesos，Docker
+ - 精通 Git，SVN，Vim，Markdown，Maven，yum，rpm，apt-get，pip，Fabric
+ - 熟悉 Big Data Analysis and Processing
+ - 精通 Math，Algorithm，Data Structure
 
 
 ### 个人简历
