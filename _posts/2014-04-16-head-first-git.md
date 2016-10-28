@@ -127,7 +127,7 @@ Git提供`git config`命令来配置或读取相应的工作环境变量，这�
 
 首次使用Git需要配置你个人的**用户名**和**电子邮箱**，每次Git提交时都会引用这两条信息，说明是谁提交了改动：
 
-    $ git config --global user.name "cheng-shiwen"
+    $ git config --global user.name "chengshiwen"
     $ git config --global user.email chengshiwen0103@gmail.com
 
 #### 2、文本编辑器
@@ -149,7 +149,7 @@ Git能够为输出到你终端的内容着色，以便你可以凭直观进行�
 要查看已有的配置信息，可以使用 `git config --list` 命令：
 
     $ git config --list
-    user.name=cheng-shiwen
+    user.name=chengshiwen
     user.email=chengshiwen0103@gmail.com
     color.ui=true
     core.repositoryformatversion=0
@@ -176,13 +176,13 @@ Git能够为输出到你终端的内容着色，以便你可以凭直观进行�
 
     $ ssh-keygen
     Generating public/private rsa key pair.
-    Enter file in which to save the key (/home/cheng-shiwen/.ssh/id_rsa):
+    Enter file in which to save the key (/home/chengshiwen/.ssh/id_rsa):
     Enter passphrase (empty for no passphrase):
     Enter same passphrase again:
-    Your identification has been saved in /home/cheng-shiwen/.ssh/id_rsa.
-    Your public key has been saved in /home/cheng-shiwen/.ssh/id_rsa.pub.
+    Your identification has been saved in /home/chengshiwen/.ssh/id_rsa.
+    Your public key has been saved in /home/chengshiwen/.ssh/id_rsa.pub.
     The key fingerprint is:
-    a8:34:f4:76:9e:7c:00:66:9f:fe:8b:8c:e6:9b:fb:29 cheng-shiwen@root
+    a8:34:f4:76:9e:7c:00:66:9f:fe:8b:8c:e6:9b:fb:29 chengshiwen@root
     The key's randomart image is:
     +--[ RSA 2048]----+
     |                 |
@@ -758,7 +758,7 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
 任何包含未解决冲突的文件都会以**未合并**（Unmerged）的状态列出。Git会在有冲突的文件里加入标准的冲突解决标记，可以通过它们来手工定位并解决这些冲突，这些冲突文件包含类似下面的部分：
 
     <<<<<<< HEAD
-    <div id="footer">Copyright by cheng-shiwen</div>
+    <div id="footer">Copyright by chengshiwen</div>
     =======
     <div id="footer">
         Contact me: chengshiwen0103@gmail.com
@@ -769,7 +769,7 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
 
     <div id="footer">
         Contact me: chengshiwen0103@gmail.com
-        Copyright by cheng-shiwen
+        Copyright by chengshiwen
     </div>
 
 在解决了所有文件里的所有冲突后，运行`git add`将它们的快照保存到暂存区域，再使用`git commit`来完成这次合并提交。
@@ -820,8 +820,8 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
 加上`-v`选项，显示对应的克隆地址：
 
     $ git remote -v
-    origin  git@github.com:cheng-shiwen/InputHelper.git (fetch)
-    origin  git@github.com:cheng-shiwen/InputHelper.git (push)
+    origin  git@github.com:chengshiwen/InputHelper.git (fetch)
+    origin  git@github.com:chengshiwen/InputHelper.git (push)
 
 **添加远程仓库**
 
@@ -833,8 +833,8 @@ Git作了合并，但没有提交，它会停下来等你解决冲突。此时�
 
     $ git remote add upstream https://github.com/xgenvn/InputHelper.git
     $ git remote -v
-    origin  git@github.com:cheng-shiwen/InputHelper.git (fetch)
-    origin  git@github.com:cheng-shiwen/InputHelper.git (push)
+    origin  git@github.com:chengshiwen/InputHelper.git (fetch)
+    origin  git@github.com:chengshiwen/InputHelper.git (push)
     upstream    https://github.com/xgenvn/InputHelper.git (fetch)
     upstream    https://github.com/xgenvn/InputHelper.git (push)
 

@@ -26,24 +26,32 @@ title: 关于我
  - 精通数学，熟悉常见数据结构及算法
 
 
+### 个人简历
+
+ - 简历：[ChengShiwen_CV.pdf][1]
+
+
 ### 关于网站
 
 用于技术的分享和交流，同时记录一些个人的随想和感悟<br>
-本网站基于 [GitHub Pages][1]{:target="_blank"}，采用 [Jekyll][2]{:target="_blank"} 模板系统搭建，文章使用 [Markdown][3]{:target="_blank"} 标记语言撰写
+本网站基于 [GitHub Pages][2]{:target="_blank"}，采用 [Jekyll][3]{:target="_blank"} 模板系统搭建，文章使用 [Markdown][4]{:target="_blank"} 标记语言撰写
 
 
 ### 联系方式
 
- - 邮箱：[chengshiwen0103@gmail.com][4]
- - 微博：[http://weibo.com/u/1834994197][5]{:target="_blank"}
- - 留言：[http://chengshiwen.com/messages.html][6]
- - GitHub：[https://github.com/cheng-shiwen][7]{:target="_blank"}
+ - 邮箱：[chengshiwen0103@gmail.com][5]
+ - 微博：[http://weibo.com/u/1834994197][6]{:target="_blank"}
+ - 留言：[http://chengshiwen.com/messages.html][7]
+ - GitHub：[https://github.com/chengshiwen][8]{:target="_blank"}
+ - LinkedIn：[https://www.linkedin.com/in/chengshiwen][9]{:target="_blank"}
 
 
-[1]:    https://pages.github.com
-[2]:    http://jekyllrb.com
-[3]:    http://daringfireball.net/projects/markdown/syntax
-[4]:    mailto:chengshiwen0103@gmail.com
-[5]:    http://weibo.com/u/1834994197
-[6]:    /messages.html
-[7]:    https://github.com/cheng-shiwen
+[1]:    /assets/cv/ChengShiwen_CV.pdf
+[2]:    https://pages.github.com
+[3]:    http://jekyllrb.com
+[4]:    http://daringfireball.net/projects/markdown/syntax
+[5]:    mailto:chengshiwen0103@gmail.com
+[6]:    http://weibo.com/u/1834994197
+[7]:    /messages.html
+[8]:    https://github.com/chengshiwen
+[9]:    https://www.linkedin.com/in/chengshiwen
