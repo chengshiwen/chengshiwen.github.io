@@ -3,7 +3,7 @@ layout: page
 title: 关于我
 ---
 
-<iframe width="100%" height="75" class="share_self" frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=75&fansRow=1&ptype=1&speed=0&skin=5&isTitle=0&noborder=0&isWeibo=0&isFans=0&uid=1834994197&verifier=09d0e2bb&dpc=1"></iframe>
+<div id="github-card" class="gh-profile-card" data-username="chengshiwen"></div>
 <h2>关于我</h2>
 <hr style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" color="#e8e8e8" size="3" />
 
@@ -22,8 +22,9 @@ title: 关于我
  - 精通 HTML/HTML5，JavaScript，CSS；精通 jQuery，Bootstrap
  - 精通 Linux，Mac OS X；熟练 Windows
  - 精通 MySQL，Redis；熟练 Memcached，MongoDB，SQLite3
- - 熟悉 Nagios，Kafka，Spark，HBase，OpenTSDB，Hadoop，Mesos，Docker
- - 精通 Git，SVN，Vim，Markdown，Maven，yum，rpm，apt-get，pip，Fabric
+ - 精通 Nagios，Supervisor, Celery，Virtualenv，Fabric
+ - 熟悉 Kafka，Spark，HBase，Hadoop，Mesos，Docker，OpenTSDB
+ - 精通 Git，SVN，Vim，Markdown，Maven，pip，yum，rpm，apt-get
  - 熟悉 Big Data Analysis and Processing
  - 精通 Math，Algorithm，Data Structure
 
@@ -41,19 +42,19 @@ title: 关于我
 
 ### 联系方式
 
- - 邮箱：[chengshiwen0103@gmail.com][5]
- - 微博：[http://weibo.com/u/1834994197][6]{:target="_blank"}
- - 留言：[http://chengshiwen.com/messages.html][7]
- - GitHub：[https://github.com/chengshiwen][8]{:target="_blank"}
- - LinkedIn：[https://www.linkedin.com/in/chengshiwen][9]{:target="_blank"}
+ - 留言：[http://chengshiwen.com/messages.html][5]
+ - 邮箱：[chengshiwen0103@gmail.com][6]
+ - GitHub：[https://github.com/chengshiwen][7]{:target="_blank"}
+ - LinkedIn：[https://www.linkedin.com/in/chengshiwen][8]{:target="_blank"}
 
 
 [1]:    /assets/cv/ChengShiwen_CV.pdf
 [2]:    https://pages.github.com
 [3]:    http://jekyllrb.com
 [4]:    http://daringfireball.net/projects/markdown/syntax
-[5]:    mailto:chengshiwen0103@gmail.com
-[6]:    http://weibo.com/u/1834994197
-[7]:    /messages.html
-[8]:    https://github.com/chengshiwen
-[9]:    https://www.linkedin.com/in/chengshiwen
+[5]:    /messages.html
+[6]:    mailto:chengshiwen0103@gmail.com
+[7]:    https://github.com/chengshiwen
+[8]:    https://www.linkedin.com/in/chengshiwen
+
+<script type="text/javascript" src="/assets/js/gh-profile-card.js"></script>

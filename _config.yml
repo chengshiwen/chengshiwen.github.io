@@ -5,4 +5,3 @@ url: http://chengshiwen.com
 markdown: kramdown
 highlighter: rouge
 permalink: /article/:title
-paginate: 6

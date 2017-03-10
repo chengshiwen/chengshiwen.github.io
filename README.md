@@ -17,10 +17,12 @@ If you like the design style of my website, you can fork the repo and make your 
 - [Ruby][2]
 - [RubyGems][3]
 - [Jekyll][]: `gem install jekyll`
-- [kramdown][4]: `gem install kramdown`
+- [GCC][4]
+- [Make][5]
 
 [Jekyll]: http://jekyllrb.com/
 [1]: http://chengshiwen.com/
 [2]: https://www.ruby-lang.org/
 [3]: https://rubygems.org/
-[4]: http://kramdown.gettalong.org/
+[4]: https://gcc.gnu.org/
+[5]: https://www.gnu.org/software/make/

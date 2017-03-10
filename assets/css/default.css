@@ -125,3 +125,105 @@ pre code {padding:0;color:inherit;background-color:transparent;border:0;word-wra
     .index-content {margin-left:0;padding-right:0;}
     .index-content .artical-list {width:95%;}
 }
+
+.gh-profile-card + h2 {
+    margin-top: 15px;
+}
+.gh-profile-card {
+    min-width: 240px;
+    height: 64px;
+    font-size: 16px;
+    font-family: Helvetica;
+    background: #FFF;
+    overflow: hidden;
+}
+.gh-profile-card a {
+    text-decoration: none;
+    color: #444;
+}
+.gh-profile-card .error {
+    font-size: 0.8em;
+    color: #444;
+    padding: 10px;
+}
+.gh-profile-card .error span {
+    display: block;
+    border-bottom: 1px solid #DDD;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+.gh-profile-card .error span.remain {
+    text-align: center;
+    font-weight: bold;
+}
+.gh-profile-card .profile {
+}
+.gh-profile-card .avatar {
+    width: 64px;
+    height: 64px;
+    float: left;
+    margin: 0 10px 0 0;
+    border-radius: 5px;
+    box-shadow: 0 0 2px 0 #DDD;
+}
+.gh-profile-card .name {
+    display: block;
+    font-size: 1.4em;
+    color: #666;
+}
+.gh-profile-card .location {
+    display: block;
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 2px;
+}
+.gh-profile-card .followMe {
+    margin-top: 2px;
+}
+.gh-profile-card .follow-button {
+    display: inline;
+    font-size: 0.8em;
+    font-weight: normal;
+    color: #333;
+    padding: 0 10px;
+    line-height: 1.5em;
+    border: 1px solid #D5D5D5;
+    border-radius: 3px;
+    background: #EAEAEA;
+    background-image: linear-gradient(#FAFAFA, #EAEAEA);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.gh-profile-card .follow-button:hover {
+    color: inherit;
+    background: #DDD;
+    background-image: linear-gradient(#EEE, #DDD);
+}
+.gh-profile-card .followMe span {
+    position: relative;
+    background: #FFF;
+    margin-left: 8px;
+    padding: 0 5px;
+    color: #444;
+    font-size: 0.8em;
+    border: 1px solid;
+    border-color: #BBB;
+    border-radius: 2px;
+}
+.gh-profile-card .followMe span::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 5px;
+    height: 5px;
+    left: -4px;
+    top: 30%;
+    background: inherit;
+    border-left: 1px solid;
+    border-top: 1px solid;
+    border-color: inherit;
+    transform: rotate(-45deg);
+}
