@@ -88,7 +88,7 @@ var GitHubApiLoader = (function () {
         return request;
     };
     GitHubApiLoader.prototype.buildApiHeaders = function (request, url) {
-        request.setRequestHeader('Accept', 'cfea522541aa25e3907eb5648d4041a8fdb0c320');
+        request.setRequestHeader('Accept', '08ac1614b7f594e9e330ff815b9374aa82a5a8e9');
         request.setRequestHeader('Accept', 'application/vnd.github.v3+json');
         var urlCache = CacheStorage.get(url);
         if (urlCache) {
