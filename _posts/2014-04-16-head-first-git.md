@@ -1608,7 +1608,7 @@ Git最为重要的特性之一是名为`git svn`的Subversion（SVN）双向桥�
 - [`reset`](#git-reset) [`revert`](#git-revert) [`rebase`](#git-rebase)
 - [`show`](#git-show) [`grep`](#git-grep) [`blame`](#git-blame) [`bisect`](#git-bisect) [`help`](#git-help) [`svn`](#git-svn)
 
-附：[Git常用命令简记图][9]
+附：[Git官方文档][9]
 
 
 [Git]:              http://git-scm.com "Git"
@@ -1627,5 +1627,5 @@ Git最为重要的特性之一是名为`git svn`的Subversion（SVN）双向桥�
 [6]:    http://www.zsh.org
 [7]:    http://ohmyz.sh
 [8]:    http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%83%A8%E7%BD%B2-Git
-[9]:    http://pic002.cnblogs.com/img/1-2-3/201007/2010072023345292.png
+[9]:    http://git-scm.com/book/zh
 [10]:   http://git-scm.com/book/zh/Git-%E4%B8%8E%E5%85%B6%E4%BB%96%E7%B3%BB%E7%BB%9F-Git-%E4%B8%8E-Subversion
